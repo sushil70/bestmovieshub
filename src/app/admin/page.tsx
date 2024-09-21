@@ -58,6 +58,8 @@ export default function AddForm() {
         onSubmit={handleSubmit(onSubmit)}
         className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md"
       >
+        {/* {console.log("register", register)} */}
+
         <h2 className="text-2xl font-bold mb-6 text-center">Add Movie</h2>
         <FormInput
           label="Title"
@@ -76,7 +78,7 @@ export default function AddForm() {
         <ComboboxForm
           placeholder="Select type"
           onChange={(e) => {
-            setValue("type", e, { shouldValidate: true });
+            setValue("type", e as any, { shouldValidate: true });
           }}
           className="mb-4"
           options={[

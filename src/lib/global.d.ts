@@ -29,8 +29,7 @@ declare global {
   }[];
 
   interface Option {
-    id: string | number;
-    label: string;
+    [key: string]: string;
   }
 
   interface Global {
