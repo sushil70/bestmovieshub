@@ -1,5 +1,6 @@
 import UserTable from "@/components/ui/Table";
 import { PrismaClient } from "@prisma/client";
+import { Suspense } from "react";
 
 export default async function Admin() {
   const prisma = new PrismaClient();
@@ -8,7 +9,9 @@ export default async function Admin() {
 
   return (
     <main>
-      <UserTable data={movies} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <UserTable data={movies} />
+      </Suspense>
     </main>
   );
 }
