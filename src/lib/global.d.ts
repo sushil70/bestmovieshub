@@ -32,6 +32,14 @@ declare global {
     [key: string]: string;
   }
 
+  type ArraysOfObjects = {
+    [key: string]: string | string[] | number | boolean | null;
+  };
+
+  type TableProps = {
+    data: ArraysOfObjects[];
+  };
+
   interface Global {
     prisma: PrismaClient | undefined;
   }
