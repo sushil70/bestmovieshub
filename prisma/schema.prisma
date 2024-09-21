@@ -1,0 +1,39 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// Define your models here
+
+model allmovies{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  profileImage String
+  type String 
+  images String[] @ignore
+  rating Int @ignore
+  genre String[] @ignore
+  year Int @ignore
+  runtime String @ignore
+  languages String[] @ignore
+  description String @ignore
+  storySummary String @ignore
+  actors String[] @ignore
+  director String @ignore
+  writer String @ignore
+  producer String @ignore
+  releaseDate String @ignore
+  lastupdated String @ignore
+  countries String[] @ignore
+  details String @ignore
+}
