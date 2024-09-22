@@ -10,6 +10,8 @@ interface Movie {
   profileImage: string;
 }
 
+export const revalidate = 60;
+
 async function getMovies(): Promise<Movie[]> {
   const prisma = new PrismaClient();
   try {
