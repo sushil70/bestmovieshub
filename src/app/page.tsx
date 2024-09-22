@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/lib/prisma";
 import Button from "@/components/ui/button";
+// import { prisma } from "@/lib/prisma";
 // import { Button } from "@/components/ui/button";
 
 interface Movie {
@@ -10,22 +11,26 @@ interface Movie {
   profileImage: string;
 }
 
-export const revalidate = 60;
+export const revalidate = 60 * 5;
 
 async function getMovies(): Promise<Movie[]> {
-  const prisma = new PrismaClient();
   try {
     return await prisma.allmovies.findMany();
   } catch (error) {
     console.error("Failed to fetch movies:", error);
-    return [];
-  } finally {
-    await prisma.$disconnect();
+    throw new Error("Failed to fetch movies. Please try again later.");
   }
 }
 
 export default async function Home() {
-  const movies = await getMovies();
+  let movies: Movie[] = [];
+  let error: string | null = null;
+
+  try {
+    movies = await getMovies();
+  } catch (e) {
+    error = e instanceof Error ? e.message : "An unexpected error occurred";
+  }
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -52,26 +57,30 @@ export default async function Home() {
       </header>
 
       <main className="container mx-auto p-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {movies.map((movie) => (
-            <div
-              key={movie.id}
-              className="bg-[#222] rounded-lg overflow-hidden"
-            >
-              <Image
-                src={`https://res.cloudinary.com/dhzisk3o5/image/upload/v1726825410/${movie.profileImage}.jpg`}
-                alt={movie.title}
-                width={300}
-                height={400}
-                className="w-full h-auto"
-              />
-              <div className="p-4">
-                <h2 className="text-lg font-semibold mb-2">{movie.title}</h2>
-                <p className="text-sm text-gray-400">{movie.id}</p>
+        {error ? (
+          <div className="text-red-500 text-center">{error}</div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {movies.map((movie) => (
+              <div
+                key={movie.id}
+                className="bg-[#222] rounded-lg overflow-hidden"
+              >
+                <Image
+                  src={`https://res.cloudinary.com/dhzisk3o5/image/upload/v1726825410/${movie.profileImage}.jpg`}
+                  alt={movie.title}
+                  width={300}
+                  height={400}
+                  className="w-full h-auto"
+                />
+                <div className="p-4">
+                  <h2 className="text-lg font-semibold mb-2">{movie.title}</h2>
+                  <p className="text-sm text-gray-400">{movie.id}</p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </main>
 
       <footer className="mt-8 p-4 bg-[#111] text-center">
