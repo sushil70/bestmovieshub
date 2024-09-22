@@ -6,7 +6,7 @@ import manageAccess from "@/app/actions/AccessManage";
 import { Modal } from "./Model";
 import AddForm from "@/app/admin/AddForm";
 
-const UserTable: React.FC<TableProps> = ({ data }) => {
+const UserTable: React.FC<any> = ({ data }) => {
   const idSearchParams: string | null = useSearchParams().get("id");
 
   const [checkingAccess, setCheckingAccess] = useState(true);
