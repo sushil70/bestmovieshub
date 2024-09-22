@@ -1,5 +1,5 @@
 "use client";
-import { redirect } from "next/navigation";
+import { permanentRedirect, redirect } from "next/navigation";
 
 // Admin ID, consider moving this to an environment variable
 const ADMIN_ID = process.env.REACT_APP_ADMIN_ID; // Move sensitive key to env
@@ -15,37 +15,37 @@ const isExpired = (timestamp: number) =>
   getTimestamp() - timestamp > EXPIRATION_DURATION;
 
 // Function to check and clear expired localStorage data
-const checkAndClearExpiredSession = () => {
-  const sessionTimestamp = localStorage.getItem("a");
+const checkAndClearExpiredSession = async () => {
+  const sessionTimestamp = await localStorage.getItem("a");
   if (sessionTimestamp && isExpired(parseInt(sessionTimestamp, 10))) {
-    localStorage.clear();
-    redirect("/");
+    await localStorage.clear();
+    permanentRedirect("/");
   }
 };
 
 // Function to handle the admin redirection
-const handleAdminAccess = (id: string) => {
+const handleAdminAccess = async (id: string) => {
   if (id === ADMIN_ID) {
-    localStorage.setItem("a", getTimestamp().toString());
+    await window.localStorage.setItem("a", getTimestamp().toString());
     redirect("/admin");
   } else {
-    redirect("/");
+    permanentRedirect("/");
   }
 };
 
 // Main logic
-const manageAccess = (idSearchParams: string | null) => {
+const manageAccess = async (idSearchParams: string | null) => {
   // Check if session is expired before proceeding
   checkAndClearExpiredSession();
 
   if (idSearchParams) {
     // Store the ID from URL into localStorage
-    localStorage.setItem("id", idSearchParams);
+    await localStorage.setItem("id", idSearchParams);
     handleAdminAccess(idSearchParams);
   } else {
-    const storedId = localStorage.getItem("id");
+    const storedId = await window.localStorage.getItem("id");
     if (storedId !== ADMIN_ID) {
-      redirect("/");
+      permanentRedirect("/");
     }
   }
 };

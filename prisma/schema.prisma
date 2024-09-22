@@ -20,21 +20,24 @@ model allmovies{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   title String
   profileImage String
-  type String 
-  images String[] @ignore
-  rating Int @ignore
-  genre String[] @ignore
-  year Int @ignore
-  runtime String @ignore
-  languages String[] @ignore
-  description String @ignore
-  storySummary String @ignore
-  actors String[] @ignore
-  director String @ignore
-  writer String @ignore
-  producer String @ignore
-  releaseDate String @ignore
-  lastupdated String @ignore
-  countries String[] @ignore
-  details String @ignore
+  type Json 
+  noOfImages String? @default("")
+  images String[] @default([])
+  rating String? @default("0.0")
+  genre Json[] @default([])
+  year String? @default("")
+  runtime String? @default("0.00")
+  languages Json? 
+  description String? @default("")
+  storySummary String? @default("")
+  actors Json[] @default([])
+  director Json[] @default([])
+  writer Json[] @default([])
+  producer Json[] @default([])
+  releaseDate String? @default("")
+  lastupdated String? @default("")
+  countries String[] @default([])
+  details String? @default("")
+  createdDate DateTime?  @default(now())
+  updatedDate DateTime? @updatedAt
 }

@@ -4,21 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import getMovies from "./actions/getMovies";
-// import { prisma } from "@/lib/prisma";
-// import { Button } from "@/components/ui/button";
-
-// export const revalidate = 60 * 5;
-
-// async function getMovies(): Promise<Movie[]> {
-//   try {
-//     return await prisma.allmovies.findMany();
-//   } catch (error) {
-//     console.error("Failed to fetch movies:", error);
-//     throw new Error("Failed to fetch movies. Please try again later.");
-//   }
-// }
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+
   const [movies, setMovies] = useState<any | null>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -31,6 +21,17 @@ export default function Home() {
       setError(error);
     })();
   }, []);
+
+  const handleItemClick = (id: number) => {
+    router.push(`/details/${id}`);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent, id: number) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      handleItemClick(id);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -66,6 +67,8 @@ export default function Home() {
                   <div
                     key={movie.id}
                     className="bg-[#222] rounded-lg overflow-hidden"
+                    onClick={() => handleItemClick(movie.id)}
+                    onKeyDown={(e) => handleKeyDown(e, movie.id)}
                   >
                     <Image
                       src={`https://res.cloudinary.com/dhzisk3o5/image/upload/v1726825410/${movie.profileImage}.jpg`}

@@ -4,14 +4,10 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export async function addMovie(data: FormData) {
+export async function addMovie(data: any) {
   try {
     const result = await prisma.allmovies.create({
-      data: {
-        title: data.get("title") as string,
-        profileImage: data.get("profileImage") as string,
-        type: data.get("type") as string,
-      },
+      data,
     });
     return { success: true, data: result };
   } catch (error) {

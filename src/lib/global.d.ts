@@ -12,20 +12,22 @@ declare global {
     type: "movie" | "series" | "episode";
     images: string[] | null;
     rating: number | null;
-    genre: string[] | null;
+    genre: object[] | null;
     year: number | null;
     runtime: string | null;
-    languages: string[] | null;
+    languages: object | null;
     description: string | null;
     storySummary: string | null;
-    actors: string[] | null;
-    director: string | null;
-    writer: string | null;
-    producer: string | null;
+    actors: object[] | null;
+    director: object[] | null;
+    writer: object[] | null;
+    producer: object[] | null;
     releaseDate: string | null;
     lastupdated: string | null;
     countries: string[] | null;
     details: string | null;
+    createdDate: Date;
+    updatedDate: Date;
   }[];
 
   interface Option {

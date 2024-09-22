@@ -8,6 +8,9 @@ interface InputProps
   register: UseFormRegister<any>;
   error?: FieldError;
   options?: { value: string; label: string }[];
+  className?: string;
+  type: string;
+  min?: number;
 }
 
 export default function FormInput({
@@ -16,12 +19,15 @@ export default function FormInput({
   register,
   error,
   options,
+  className = "mb-4",
+  type,
+  min = 0,
   ...props
 }: InputProps) {
   const InputComponent = options ? "select" : "input";
 
   return (
-    <div className="mb-4">
+    <div className={className}>
       <label
         htmlFor={id}
         className="block text-sm font-medium text-gray-700 mb-1"
@@ -35,20 +41,12 @@ export default function FormInput({
         }`}
         aria-invalid={error ? "true" : "false"}
         aria-describedby={error ? `${id}-error` : undefined}
+        type={type}
+        min={min}
         {...register(id)}
         {...props}
-      >
-        {options && [
-          <option key="default" value="">
-            Select an option
-          </option>,
-          ...options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          )),
-        ]}
-      </InputComponent>
+      />
+
       {error && (
         <p id={`${id}-error`} className="mt-1 text-sm text-red-600">
           {error.message}

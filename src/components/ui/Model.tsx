@@ -44,7 +44,7 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-40 flex items-center justify-center ">
-      <div className="relative bg-white w-full max-w-md m-4 p-6 rounded-lg shadow-lg">
+      <div className="relative bg-white w-2/3 h-[calc(100vh-3rem)] m-4 p-6 rounded-lg shadow-lg">
         <button
           onClick={handleClose}
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"

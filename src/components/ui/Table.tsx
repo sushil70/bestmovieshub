@@ -52,7 +52,7 @@ const UserTable: React.FC<TableProps> = ({ data }) => {
               {data.map((item: any) => (
                 <tr key={item.id} className="hover:bg-gray-50">
                   <td className="py-2 px-4 border-b">{item.id}</td>
-                  <td className="py-2 px-4 border-b">{item.name}</td>
+                  <td className="py-2 px-4 border-b">{item.title}</td>
                   <td className="py-2 px-4 border-b">{item.email}</td>
                   <td className="py-2 px-4 border-b">{item.role}</td>
                 </tr>
