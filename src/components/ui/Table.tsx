@@ -1,5 +1,5 @@
 "use client";
-import { redirect, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Button from "./button";
 import manageAccess from "@/app/actions/AccessManage";
@@ -7,6 +7,7 @@ import { Modal } from "./Model";
 import AddForm from "@/app/admin/AddForm";
 
 const UserTable: React.FC<any> = ({ data }) => {
+  const router = useRouter();
   const idSearchParams: string | null = useSearchParams().get("id");
 
   const [checkingAccess, setCheckingAccess] = useState(true);
@@ -14,9 +15,9 @@ const UserTable: React.FC<any> = ({ data }) => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      manageAccess(idSearchParams);
+      manageAccess(idSearchParams, router);
     } else {
-      redirect("/");
+      router.push("/");
     }
     setCheckingAccess(false);
   }, [idSearchParams]);
