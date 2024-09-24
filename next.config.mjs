@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["res.cloudinary.com"],
+    domains: ["res.cloudinary.com", "collection.cloudinary.com"],
   },
   env: {
     REACT_APP_ADMIN_ID: "passwordToAdminPageWhereFixedManCanGo",

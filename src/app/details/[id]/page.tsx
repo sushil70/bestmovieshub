@@ -1,7 +1,7 @@
 "use client";
 
 import getMovieDetail from "@/app/actions/getMovieDetails";
-import Button from "@/components/ui/button";
+import { Button } from "@/components/ui/Button";
 import { ArrowLeft, Badge, Download } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

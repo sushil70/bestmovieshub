@@ -1,13 +1,12 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import Button from "./button";
 import manageAccess from "@/app/actions/AccessManage";
 import { Modal } from "./Model";
 import AddForm from "@/app/admin/AddForm";
 
 import { Input } from "@/components/ui/SearchInput";
-import { Button as Button1 } from "@/components/ui/Button1";
+import { Button } from "@/components/ui/Button";
 import {
   Table,
   TableBody,
@@ -48,7 +47,7 @@ const UserTable: React.FC<any> = ({ data }) => {
     <>
       <div className="flex flex-col">
         <Button
-          variant="primary"
+          variant="default"
           className="mb-8 w-fit flex "
           onClick={() => setIsOpen(true)}
         >
@@ -100,12 +99,12 @@ const UserTable: React.FC<any> = ({ data }) => {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <Button1 variant="link" size="sm">
+                    <Button variant="link" size="sm">
                       Details
-                    </Button1>
-                    <Button1 variant="default" size="sm">
+                    </Button>
+                    <Button variant="default" size="sm">
                       Edit
-                    </Button1>
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
