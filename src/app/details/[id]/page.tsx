@@ -5,7 +5,6 @@ import {
   Award,
   Camera,
   Clock,
-  Copyright,
   Download,
   Film,
   Globe,
@@ -423,17 +422,6 @@ const Detail = () => {
               </div>
             </div>
           </div>
-
-          <footer className="mt-12 text-center text-sm text-gray-500">
-            <p className="flex items-center justify-center">
-              <Copyright className="mr-1 h-4 w-4" /> {movieDetails.copyright}
-            </p>
-            <p className="mt-2">
-              All movie information and images are copyrighted by their
-              respective owners. This website is for educational and
-              informational purposes only.
-            </p>
-          </footer>
         </div>
       </div>
     </>

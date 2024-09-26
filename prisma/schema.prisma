@@ -20,6 +20,7 @@ model allmovies{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   title String
   profileImage String
+  backdropImage String
   type Json 
   noOfImages String? @default("")
   images String[] @default([])
@@ -27,7 +28,6 @@ model allmovies{
   genre Json[] @default([])
   year String? @default("")
   runtime String? @default("0.00")
-  languages Json? 
   description String? @default("")
   storySummary String? @default("")
   actors Json[] @default([])
@@ -40,4 +40,12 @@ model allmovies{
   details String? @default("")
   createdDate DateTime?  @default(now())
   updatedDate DateTime? @updatedAt
+  downloadLinks Json[] @default([])
+  trailerLink String? @default("")
+  reviews Json[] @default([])
+  tags String[] @default([])
+  ageRating String @default("")
+  awards String[] @default([])
+  soundtrack Json[] @default([])
+  funFacts String[] @default([])   
 }

@@ -2,7 +2,6 @@
 import { Card, CardContent } from "@/components/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/SearchInput";
 import { Star } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -15,7 +14,6 @@ export default function Home() {
   const [movies, setMovies] = useState<any | null>([]);
   const [error, setError] = useState<string | null>(null);
   const [skip, setSkip] = useState(0);
-  const [searchTerm, setSearchTerm] = useState("");
 
   console.log(error);
 
@@ -50,23 +48,24 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm">
-        <div className="container mx-auto px-4 py-6 flex flex-col sm:flex-row justify-between items-center">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4 sm:mb-0">
-            CineVault
-          </h1>
-          <Input
-            type="search"
-            placeholder="Search movies..."
-            className="max-w-xs"
-            value={searchTerm}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setSearchTerm(e.target.value)
-            }
-          />
-        </div>
-      </header>
+    <>
+      {/* // <div className="min-h-screen bg-gray-50">
+      // <header className="bg-white shadow-sm">
+      //   <div className="container mx-auto px-4 py-6 flex flex-col sm:flex-row justify-between items-center">
+      //     <h1 className="text-3xl font-bold text-gray-900 mb-4 sm:mb-0">
+      //       CineVault
+      //     </h1>
+      //     <Input
+      //       type="search"
+      //       placeholder="Search movies..."
+      //       className="max-w-xs"
+      //       value={searchTerm}
+      //       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+      //         setSearchTerm(e.target.value)
+      //       }
+      //     />
+      //   </div>
+      // </header> */}
 
       <main className="container mx-auto py-12 px-4 flex justify-evenly  ">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 w-3/4 max-w-[940px]">
@@ -205,6 +204,7 @@ export default function Home() {
       ) : (
         ""
       )}
-    </div>
+      {/* // </div> */}
+    </>
   );
 }

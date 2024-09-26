@@ -1,126 +1,80 @@
-"use client";
-import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import manageAccess from "@/app/actions/AccessManage";
-import { Modal } from "./Model";
-import AddForm from "@/app/admin/AddForm";
-import { Input } from "@/components/ui/SearchInput";
-import { Button } from "@/components/ui/Button";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/Table1";
-import { Badge } from "@/components/ui/Badge";
-import { Star } from "lucide-react";
+import * as React from "react";
+import { cn } from "@/lib/Utils";
 
-const UserTable: React.FC<any> = ({ data }) => {
-  const router = useRouter();
-  const idSearchParams: string | null = useSearchParams().get("id");
+const Table = React.forwardRef<
+  HTMLTableElement,
+  React.HTMLAttributes<HTMLTableElement>
+>(({ className, ...props }, ref) => (
+  <div className="w-full overflow-auto">
+    <table
+      ref={ref}
+      className={cn("w-full caption-bottom text-sm", className)}
+      {...props}
+    />
+  </div>
+));
+Table.displayName = "Table";
 
-  const [checkingAccess, setCheckingAccess] = useState(true);
-  const [isOpen, setIsOpen] = useState(false);
+const TableHeader = React.forwardRef<
+  HTMLTableSectionElement,
+  React.HTMLAttributes<HTMLTableSectionElement>
+>(({ className, ...props }, ref) => (
+  <thead ref={ref} className={cn("[&_tr]:border-b", className)} {...props} />
+));
+TableHeader.displayName = "TableHeader";
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      manageAccess(idSearchParams, router);
-    } else {
-      router.push("/");
-    }
-    setCheckingAccess(false);
-  }, [idSearchParams]);
+const TableBody = React.forwardRef<
+  HTMLTableSectionElement,
+  React.HTMLAttributes<HTMLTableSectionElement>
+>(({ className, ...props }, ref) => (
+  <tbody
+    ref={ref}
+    className={cn("[&_tr:last-child]:border-0", className)}
+    {...props}
+  />
+));
+TableBody.displayName = "TableBody";
 
-  if (checkingAccess) {
-    return <div></div>;
-  }
+const TableRow = React.forwardRef<
+  HTMLTableRowElement,
+  React.HTMLAttributes<HTMLTableRowElement>
+>(({ className, ...props }, ref) => (
+  <tr
+    ref={ref}
+    className={cn(
+      "border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted",
+      className
+    )}
+    {...props}
+  />
+));
+TableRow.displayName = "TableRow";
 
-  // const filteredMovies = mockMovies.filter(movie =>
-  //   movie.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  //   movie.director.toLowerCase().includes(searchTerm.toLowerCase())
-  // )
+const TableHead = React.forwardRef<
+  HTMLTableCellElement,
+  React.ThHTMLAttributes<HTMLTableCellElement>
+>(({ className, ...props }, ref) => (
+  <th
+    ref={ref}
+    className={cn(
+      "h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0",
+      className
+    )}
+    {...props}
+  />
+));
+TableHead.displayName = "TableHead";
 
-  return (
-    <>
-      <div className="flex flex-col">
-        <Button
-          variant="default"
-          className="mb-8 w-fit flex "
-          onClick={() => setIsOpen(true)}
-        >
-          Add Movie
-        </Button>
-      </div>
-      <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-4">
-        <header className="max-w-7xl mx-auto py-6">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Movie Collection
-          </h1>
-          <Input
-            type="search"
-            placeholder="Search movies or directors..."
-            className="max-w-md mb-4"
-            // value={searchTerm}
-            // onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </header>
-        <main className="max-w-7xl mx-auto py-6">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Title</TableHead>
-                <TableHead>Year</TableHead>
-                <TableHead>Genre</TableHead>
-                <TableHead>Language</TableHead>
-                <TableHead>Rating</TableHead>
-                <TableHead>Action</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {data.map((movie: any) => (
-                <TableRow key={movie.id}>
-                  <TableCell className="font-medium">{movie.title}</TableCell>
-                  <TableCell>{movie.year}</TableCell>
-                  <TableCell>
-                    {movie.genre?.map((genre: any, index: number) => (
-                      <Badge key={index} variant="default">
-                        {genre?.label}
-                      </Badge>
-                    ))}
-                  </TableCell>
-                  <TableCell>{movie.languages?.label}</TableCell>
-                  <TableCell>
-                    <div className="flex items-center">
-                      <Star className="w-4 h-4 text-yellow-400 mr-1" />
-                      {movie.rating}
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <Button variant="link" size="sm">
-                      Details
-                    </Button>
-                    <Button variant="default" size="sm">
-                      Edit
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </main>
-      </div>
+const TableCell = React.forwardRef<
+  HTMLTableCellElement,
+  React.TdHTMLAttributes<HTMLTableCellElement>
+>(({ className, ...props }, ref) => (
+  <td
+    ref={ref}
+    className={cn("p-4 align-middle [&:has([role=checkbox])]:pr-0", className)}
+    {...props}
+  />
+));
+TableCell.displayName = "TableCell";
 
-      <Modal
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        title="Example Modal"
-      >
-        <AddForm />
-      </Modal>
-    </>
-  );
-};
-
-export default UserTable;
+export { Table, TableHeader, TableBody, TableHead, TableRow, TableCell };

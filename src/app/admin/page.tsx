@@ -1,4 +1,4 @@
-import UserTable from "@/components/ui/Table";
+import UserTable from "./Table";
 import { PrismaClient } from "@prisma/client";
 import { Suspense } from "react";
 

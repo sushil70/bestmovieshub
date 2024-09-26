@@ -5,29 +5,37 @@ declare global {
       prisma: PrismaClient | undefined;
     }
   }
-  type movies = {
+  type Movies = {
     id: string;
     title: string;
     profileImage: string;
+    backdropImage: string;
     type: "movie" | "series" | "episode";
     images: string[] | null;
-    rating: number | null;
-    genre: object[] | null;
-    year: number | null;
+    rating: string | null;
     runtime: string | null;
-    languages: object | null;
     description: string | null;
     storySummary: string | null;
-    actors: object[] | null;
+    releaseDate: string | null;
+    genre: object[] | null;
+    year: string | null;
+    languages: object | null;
+    actors: { label: string; name: string; character: string }[];
     director: object[] | null;
     writer: object[] | null;
     producer: object[] | null;
-    releaseDate: string | null;
     lastupdated: string | null;
-    countries: string[] | null;
     details: string | null;
     createdDate: Date;
     updatedDate: Date;
+    downloadLinks: { quality: string; link: string }[];
+    trailerLink: string;
+    reviews: { user: string; comment: string; rating: number }[];
+    tags: string[];
+    ageRating: string;
+    awards: string[];
+    soundtrack: { title: string; artist: string }[];
+    funFacts: string[];
   }[];
 
   interface Option {
