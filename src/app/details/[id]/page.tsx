@@ -42,7 +42,7 @@ const Detail = () => {
       <div className="min-h-screen bg-gray-100">
         <div className="relative h-[60vh] overflow-hidden">
           <Image
-            src={`https://res.cloudinary.com/dhzisk3o5/image/upload/${movieDetails?.backgroundImage}.jpg`}
+            src={`https://res.cloudinary.com/dhzisk3o5/image/upload/${movieDetails?.backdropImage}.jpg`}
             alt={movieDetails.title}
             layout="fill"
             objectFit="cover"

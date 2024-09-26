@@ -81,6 +81,7 @@ export default function AddForm() {
       images: Array.from({ length: parseInt(data?.noOfImages) }).map(
         (n: any, index: number) => (data.title + (index + 1)).toString()
       ),
+      backdropImage: `${data.title}b`,
       year: data.releaseDate?.split("/")?.[2] || "",
       details: `${data.title} (${data?.releaseDate?.split("/")?.[2] || ""}) ${
         data.languages?.label && ""

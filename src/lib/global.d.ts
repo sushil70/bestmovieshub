@@ -9,7 +9,7 @@ declare global {
     id: string;
     title: string;
     profileImage: string;
-    backdropImage: string;
+    backdropImage: string | null;
     type: "movie" | "series" | "episode";
     images: string[] | null;
     rating: string | null;

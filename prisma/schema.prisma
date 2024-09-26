@@ -20,7 +20,7 @@ model allmovies{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   title String
   profileImage String
-  backdropImage String
+  backdropImage String? @default("")
   type Json 
   noOfImages String? @default("")
   images String[] @default([])
