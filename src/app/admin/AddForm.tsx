@@ -20,39 +20,53 @@ const formSchema = z.object({
   runtime: z.string(),
   description: z.string(),
   storySummary: z.string(),
-  releaseDate: z.string(),
+  releaseDate: z.string().optional(),
   genre: z.array(z.object({ id: z.string(), label: z.string() })).min(0),
-  languages: z.object({ id: z.string(), label: z.string() }).nullable(),
+  languages: z
+    .object({ id: z.string(), label: z.string() })
+    .nullable()
+    .optional(),
   actors: z
-    .array(
-      z.object({ id: z.string(), label: z.string(), character: z.string() })
-    )
-    .min(0),
-  director: z.array(z.object({ id: z.string(), label: z.string() })).min(0),
-  writer: z.array(z.object({ id: z.string(), label: z.string() })).min(0),
-  producer: z.array(z.object({ id: z.string(), label: z.string() })).min(0),
+    .array(z.object({ id: z.string(), label: z.string() }))
+    .min(0)
+    .optional(),
+  director: z
+    .array(z.object({ id: z.string(), label: z.string() }))
+    .min(0)
+    .optional(),
+  writer: z
+    .array(z.object({ id: z.string(), label: z.string() }))
+    .min(0)
+    .optional(),
+  producer: z
+    .array(z.object({ id: z.string(), label: z.string() }))
+    .min(0)
+    .optional(),
 
   downloadLinks: z
     .array(z.object({ id: z.string(), label: z.string() }))
-    .min(0),
+    .min(0)
+    .optional(),
   trailerLink: z.string().optional(),
   reviews: z
     .array(
       z.object({ user: z.string(), comment: z.string(), rating: z.string() })
     )
-    .min(0),
-  tags: z.string().optional(),
-  ageRating: z.string().optional(),
-  awards: z.array(z.string()).min(0),
+    .min(0)
+    .optional(),
+  tags: z.string().optional().optional(),
+  ageRating: z.string().optional().optional(),
+  awards: z.array(z.string()).min(0).optional(),
   soundtrack: z
     .array(z.object({ title: z.string(), artist: z.string() }))
-    .min(0),
-  funFacts: z.array(z.string()).min(0),
+    .min(0)
+    .optional(),
+  funFacts: z.array(z.string()).min(0).optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
 
-export default function AddForm() {
+export default function AddForm({ setIsOpen }: any) {
   const [submitStatus, setSubmitStatus] = useState<{
     success: boolean;
     message: string;
@@ -72,6 +86,8 @@ export default function AddForm() {
     },
   });
 
+  console.log("errors", errors);
+
   const onSubmit = async (data: any) => {
     console.log("onSubmit", data);
 
@@ -84,18 +100,28 @@ export default function AddForm() {
       backdropImage: `${data.title}b`,
       year: data.releaseDate?.split("/")?.[2] || "",
       details: `${data.title} (${data?.releaseDate?.split("/")?.[2] || ""}) ${
-        data.languages?.label && ""
+        data.languages?.label ? data.languages?.label : ""
       }`,
-      runtime: `${parseInt(data.runtime) / 60}h ${
-        parseInt(data.runtime) % 60
-      }min`,
+      runtime:
+        data.type.id === "movie"
+          ? `${Math.floor(parseInt(data.runtime) / 60)}h ${
+              parseInt(data.runtime) % 60
+            }min`
+          : data.type.id === "series"
+          ? `${data.runtime} Episodes`
+          : "",
+      tags: data.tags?.split(" ") || [],
     };
+
+    console.log("formData", formData);
 
     const result = await addMovie(formData);
 
     if (result.success) {
       setSubmitStatus({ success: true, message: "Movie added successfully!" });
+      setIsOpen(true);
     } else {
+      console.log("Failed to add movie:", result);
       setSubmitStatus({
         success: false,
         message: result.error || "Failed to add movie",
@@ -202,10 +228,13 @@ export default function AddForm() {
           }}
           className=" w-1/2 mb-4 pr-2"
           options={[
-            { id: "amir", label: "Amir" },
-            { id: "salman", label: "Salman" },
-            { id: "john", label: "John" },
-            { id: "srk", label: "Shahrukh Khan" },
+            { id: "bhuvanBamAvnindraBam", label: "Bhuvan Bam" },
+            { id: "josephVijay", label: "Joseph Vijay" },
+            { id: "meenakshiChaudhary", label: "Meenakshi Chaudhary" },
+            {
+              id: "shriyaPilgaonkarSachinPilgaonkar",
+              label: "Shriya Pilgaonkar",
+            },
           ]}
           initialSelectedOption={getValues("actors") || []}
           multiSelect={true}
@@ -218,8 +247,8 @@ export default function AddForm() {
           }}
           className=" w-1/2 mb-4 pr-2"
           options={[
-            { id: "ramesh", label: "Ramesh" },
-            { id: "pawan", label: "Pawan" },
+            { id: "himankGaur", label: "Himank Gaur" },
+            { id: "venkatPrabhu", label: "Venkat Prabhu" },
           ]}
           initialSelectedOption={getValues("director") || []}
           multiSelect={true}

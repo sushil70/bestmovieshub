@@ -119,7 +119,7 @@ const UserTable: React.FC<any> = ({ data }) => {
         onClose={() => setIsOpen(false)}
         title="Add Movies"
       >
-        <AddForm />
+        <AddForm setIsOpen={setIsOpen} />
       </Modal>
     </>
   );

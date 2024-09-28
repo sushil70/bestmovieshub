@@ -15,6 +15,8 @@ import {
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import moment from "moment";
+import YoutubePlayer from "@/components/YoutubePlayer";
 
 const Detail = () => {
   const [movieDetails, setMovieDetails] = useState<any | null>({});
@@ -60,7 +62,9 @@ const Detail = () => {
                 {movieDetails.runtime}
               </span>
               <span className="bg-gray-800 px-2 py-1 rounded">
-                {movieDetails.releaseDate} July 16, 2010
+                {moment("26-09-2024T00:00:00", "DD-MM-YYYY").format(
+                  "MMMM DD, YYYY"
+                )}
               </span>
             </div>
           </div>
@@ -77,77 +81,49 @@ const Detail = () => {
                   height={450}
                   className="rounded-lg shadow-lg m-auto"
                 />
-                {/* <div className="mt-4 flex justify-between items-center">
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button
-                        variant={isLiked ? "default" : "outline"}
-                        className="flex items-center"
-                        onClick={() => setIsLiked(!isLiked)}
-                      >
-                        <Heart
-                          className={`mr-2 h-4 w-4 ${
-                            isLiked ? "fill-current" : ""
-                          }`}
-                        />
-                        Like ({isLiked ? likes + 1 : likes})
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>{isLiked ? "Unlike this movie" : "Like this movie"}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-                <Button variant="outline" className="flex items-center">
-                  <Bookmark className="mr-2 h-4 w-4" /> Watchlist
-                </Button>
-                <Button variant="outline" className="flex items-center">
-                  <Share2 className="mr-2 h-4 w-4" /> Share
-                </Button>
-              </div> */}
               </div>
             </div>
             <div className="md:col-span-2">
               <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-                <p className="text-lg mb-4">{movieDetails.summary}</p>
+                <p className="text-lg mb-4">{movieDetails.description}</p>
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div>
-                    <p className="flex items-center">
+                    <p className="flex items-center flex-wrap">
                       <Film className="mr-2 h-4 w-4" /> <strong>Genre:</strong>{" "}
-                      {movieDetails.genres
+                      {movieDetails.genre
                         ?.map(
                           (item: { label: string; id: string }) => item.label
                         )
                         .join(", ")}
                     </p>
-                    <p className="flex items-center">
+                    <p className="flex items-center flex-wrap">
                       <Camera className="mr-2 h-4 w-4" />{" "}
-                      <strong>Director:</strong>{" "}
-                      {movieDetails.directors
+                      <strong>Director: </strong>{" "}
+                      {movieDetails.director
                         ?.map(
                           (item: { label: string; id: string }) => item.label
                         )
                         .join(", ")}
                     </p>
-                    <p className="flex items-center">
+                    <p className="flex items-center flex-wrap">
                       <Globe className="mr-2 h-4 w-4" />{" "}
-                      <strong>Language:</strong> {movieDetails.language}
+                      <strong>Language: </strong>{" "}
+                      {movieDetails.languages?.label}
                     </p>
                   </div>
                   <div>
-                    <p className="flex items-center">
+                    <p className="flex items-center flex-wrap">
                       <Clock className="mr-2 h-4 w-4" />{" "}
-                      <strong>Runtime:</strong> {movieDetails.runtime} 1h 44min
+                      <strong>Runtime:</strong> {movieDetails.runtime}
                     </p>
-                    <p className="flex items-center">
+                    <p className="flex items-center flex-wrap">
                       <Info className="mr-2 h-4 w-4" />{" "}
                       <strong>Age Rating:</strong> {movieDetails.ageRating}
                     </p>
-                    <p className="flex items-center">
+                    <p className="flex items-center flex-wrap">
                       <Download className="mr-2 h-4 w-4" />{" "}
                       <strong>Quality:</strong>{" "}
-                      {movieDetails.quality
+                      {movieDetails.downloadLinks
                         ?.map(
                           (item: { label: string; id: string }) => item.label
                         )
@@ -164,11 +140,11 @@ const Detail = () => {
                     ) => (
                       <div
                         key={index}
-                        className="flex-shrink-0 w-24 text-center"
+                        className="flex-shrink-0 w-20 text-center "
                       >
                         <Image
-                          src={`https://res.cloudinary.com/dhzisk3o5/image/upload/${movieDetails.id}.jpg`}
-                          alt={movieDetails.label}
+                          src={`https://res.cloudinary.com/dhzisk3o5/image/upload/${actor.id}.jpg`}
+                          alt={actor.label}
                           width={96}
                           height={96}
                           className="rounded-full mb-2"
@@ -188,20 +164,19 @@ const Detail = () => {
           <div className="bg-white rounded-lg shadow-lg p-6  mb-8">
             <h2 className="text-2xl font-semibold mb-4">Screenshots</h2>
             <div className="flex flex-wrap  sm:flex-cols-1">
-              {movieDetails.screenshots?.length > 0 &&
-                movieDetails.screenshots?.map(
-                  (screenshot: string, index: number) => (
-                    <div className="md:w-1/2 sm:w-full p-1" key={index}>
-                      <Image
-                        src={`https://res.cloudinary.com/dhzisk3o5/image/upload/${screenshot}.jpg`}
-                        alt={screenshot}
-                        width={600}
-                        height={338}
-                        className="rounded-lg"
-                      />
-                    </div>
-                  )
-                )}
+              {movieDetails.images?.length > 0 &&
+                movieDetails.images?.map((image: string, index: number) => (
+                  <div className="md:w-1/2 sm:w-full p-1" key={index}>
+                    <Image
+                      src={`https://res.cloudinary.com/dhzisk3o5/image/upload/${image}.jpg`}
+                      alt={image}
+                      width={1000}
+                      height={100}
+                      objectFit="contain"
+                      className="rounded-lg"
+                    />
+                  </div>
+                ))}
             </div>
             {/* <div className="relative">
             <Image
@@ -253,52 +228,63 @@ const Detail = () => {
           </div>
 
           <div className="flex flex-wrap gap-8 mt-8">
-            <div className="bg-white rounded-lg shadow-lg p-6 w-full md:w-[calc(66.6667%-16px)] ">
+            <div
+              className={`bg-white rounded-lg shadow-lg p-6 w-full md:w-[calc(${
+                movieDetails.soundtrack?.length ? 66.6667 : 100
+              }%-16px)]`}
+            >
               <h2 className="text-2xl font-semibold mb-4">Trailer</h2>
-              <div className="relative w-full pb-[56.25%]">
-                <iframe
-                  src={movieDetails.trailerLink}
-                  allow="autoplay; encrypted-media"
-                  allowFullScreen
-                  className="absolute  w-full h-full rounded-lg"
-                ></iframe>
+              <div className="relative w-full aspect-video  ">
+                <YoutubePlayer videoId={movieDetails.trailerLink} />
               </div>
             </div>
-            <div className="bg-white rounded-lg shadow-lg p-6 w-full md:w-[calc(33.3333%-16px)]">
-              <h2 className="text-2xl font-semibold mb-4">Soundtrack</h2>
-              <ul className="space-y-2">
-                {movieDetails.soundtrack?.map((track: any, index: number) => (
-                  <li key={index} className="flex items-center">
-                    <Music className="mr-2 h-5 w-5 flex-shrink-0" />
-                    <div>
-                      <span className="font-semibold">{track.title}</span>
-                      <span className="text-gray-500 ml-2">
-                        by {track.artist}
-                      </span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {movieDetails.soundtrack?.length ? (
+              <div className="bg-white rounded-lg shadow-lg p-6 w-full md:w-[calc(33.3333%-16px)]">
+                <h2 className="text-2xl font-semibold mb-4">Soundtrack</h2>
+                <ul className="space-y-2">
+                  {movieDetails.soundtrack?.map((track: any, index: number) => (
+                    <li key={index} className="flex items-center">
+                      <Music className="mr-2 h-5 w-5 flex-shrink-0" />
+                      <div>
+                        <span className="font-semibold">{track.title}</span>
+                        <span className="text-gray-500 ml-2">
+                          by {track.artist}
+                        </span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-            <div className="bg-white rounded-lg shadow-lg p-6">
+            <div
+              className={`bg-white rounded-lg shadow-lg p-6 col-span-${
+                movieDetails.awards?.length > 0 ? 1 : 2
+              }`}
+            >
               <h2 className="text-2xl font-semibold mb-4">Storyline</h2>
-              <p className="text-gray-700">{movieDetails.storyline}</p>
+              <p className="text-gray-700">{movieDetails.storySummary}</p>
             </div>
 
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <h2 className="text-2xl font-semibold mb-4">Awards</h2>
-              <ul className="space-y-2">
-                {movieDetails.awards?.map((award: string, index: number) => (
-                  <li key={index} className="flex items-center">
-                    <Award className="mr-2 h-5 w-5 text-yellow-400 flex-shrink-0" />
-                    <span>{award}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {movieDetails.awards?.length > 0 ? (
+              <div className="bg-white rounded-lg shadow-lg p-6">
+                <h2 className="text-2xl font-semibold mb-4">Awards</h2>
+                <ul className="space-y-2">
+                  {movieDetails.awards?.map((award: string, index: number) => (
+                    <li key={index} className="flex items-center">
+                      <Award className="mr-2 h-5 w-5 text-yellow-400 flex-shrink-0" />
+                      <span>{award}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
 
           <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">

@@ -47,5 +47,6 @@ model allmovies{
   ageRating String @default("")
   awards String[] @default([])
   soundtrack Json[] @default([])
-  funFacts String[] @default([])   
+  funFacts String[] @default([])
+  languages Json? 
 }

@@ -98,7 +98,7 @@ export default function Home() {
                 <h3 className="font-bold text-xl mb-2 text-gray-900 dark:text-white">
                   {movie.details}
                 </h3>
-                <div className="flex justify-between items-center mb-2">
+                <div className="flex justify-between flex-wrap items-center mb-2">
                   {movie.genre?.map(
                     (genre: { label: string; id: string }, index: number) => (
                       <Badge variant="outline" key={index}>

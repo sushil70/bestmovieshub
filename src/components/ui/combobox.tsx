@@ -57,7 +57,7 @@ export default function ComboboxForm({
   };
 
   return (
-    <div className={`${className} max-w-xs `}>
+    <div className={`${className}  `}>
       <Combobox value={selected} onChange={handleChange} multiple={multiSelect}>
         <div className="relative mt-1">
           <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-primary sm:text-sm">
