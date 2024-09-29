@@ -48,8 +48,8 @@ const UserTable: React.FC<any> = ({ data }) => {
     console.log("handleAddActors", data);
 
     const formData = data.map((item: any) => ({
+      ...item,
       id: TOCAMELCASE(item.id),
-      name: item.name,
     }));
 
     const result = await addActors(formData);
@@ -70,8 +70,8 @@ const UserTable: React.FC<any> = ({ data }) => {
     console.log("handleAddDirector", data);
 
     const formData = data.map((item: any) => ({
+      ...item,
       id: TOCAMELCASE(item.id),
-      name: item.name,
     }));
 
     const result = await addDirector(formData);

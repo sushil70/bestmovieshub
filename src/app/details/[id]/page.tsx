@@ -63,7 +63,7 @@ const Detail = () => {
               </span>
               <span className="bg-gray-800 px-2 py-1 rounded">
                 {movieDetails.releaseDate
-                  ? moment(movieDetails.releaseDate, "DD-MM-YYYY").format(
+                  ? moment(movieDetails.releaseDate, "YYYY-MM-DD").format(
                       "MMMM DD, YYYY"
                     )
                   : ""}

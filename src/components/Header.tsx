@@ -14,7 +14,7 @@ export default function Header() {
     if (e.key === "Enter") {
       e.preventDefault();
       if (search) {
-        router.push(`/?query=${encodeURIComponent(search)}`);
+        router.push(`/?s=${encodeURIComponent(search)}`);
       } else {
         router.push(`/`);
       }

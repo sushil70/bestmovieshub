@@ -11,7 +11,7 @@ import getMovies from "./actions/getMovies";
 export default function Home() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const query = searchParams.get("query");
+  const query = searchParams.get("s");
 
   const [movies, setMovies] = useState<any | null>([]);
   const [error, setError] = useState<string | null>(null);
@@ -82,6 +82,8 @@ export default function Home() {
               <Card
                 key={index}
                 className=" overflow-hidden transition-transform hover:scale-105"
+                onClick={() => handleItemClick(movie.id)}
+                onKeyDown={(e) => handleKeyDown(e, movie.id)}
               >
                 {/* <div className="relative">
                 <img
@@ -92,8 +94,6 @@ export default function Home() {
                 <div
                   key={movie.id}
                   className="bg-[#222] rounded-lg overflow-hidden"
-                  onClick={() => handleItemClick(movie.id)}
-                  onKeyDown={(e) => handleKeyDown(e, movie.id)}
                 >
                   <Image
                     src={`https://res.cloudinary.com/dhzisk3o5/image/upload/${movie.profileImage}.jpg`}
@@ -130,7 +130,7 @@ export default function Home() {
             ))}
           </div>
           <div className="flex justify-center mt-8 w-1/4">
-            <Button
+            {/* <Button
               variant="outline"
               size="sm"
               onClick={() => setSkip(skip - 10)}
@@ -145,7 +145,7 @@ export default function Home() {
               disabled={skip >= movies?.pagination?.total}
             >
               Next
-            </Button>
+            </Button> */}
           </div>
         </div>
       </main>

@@ -122,7 +122,7 @@ export default function AddForm({ setIsOpen }: any) {
       ),
       backdropImage: `${data.title}b`,
       year: data.releaseDate?.split("-")?.[0] || "",
-      details: `${data.title} (${data?.releaseDate?.split("/")?.[2] || ""}) ${
+      details: `${data.title} (${data.releaseDate?.split("-")?.[0] || ""}) ${
         data.languages?.label ? data.languages?.label : ""
       }`,
       runtime:
@@ -205,6 +205,7 @@ export default function AddForm({ setIsOpen }: any) {
           className=" w-1/2 mb-4 pr-2"
           options={[
             { id: "action", label: "Action" },
+            { id: "adventure", label: "Adventure" },
             { id: "comedy", label: "Comedy" },
             { id: "documentary", label: "Documentary" },
             { id: "drama", label: "Drama" },
@@ -237,6 +238,7 @@ export default function AddForm({ setIsOpen }: any) {
           className=" w-1/2 mb-4 pr-2"
           options={[
             { id: "hindi", label: "Hindi" },
+            { id: "hindiDubbed", label: "Hindi Dubbed" },
             { id: "english", label: "English" },
             { id: "tamil", label: "Tamil" },
             { id: "telugu", label: "Telugu" },

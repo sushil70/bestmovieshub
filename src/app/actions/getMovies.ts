@@ -30,6 +30,7 @@ export default async function getMovies({
           details: true,
           rating: true,
           profileImage: true,
+          genre: true,
         },
         where: {
           OR: [
