@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Suspense } from "react";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -22,16 +23,16 @@ export const metadata: Metadata = {
   //   icon: "/metaLogo.png",
   // },
 
-  openGraph: {
-    images: [
-      {
-        url: "/images/metalogo.png",
-        width: 20,
-        height: 20,
-        alt: "My custom alt",
-      },
-    ],
-  },
+  // openGraph: {
+  //   images: [
+  //     {
+  //       url: "/images/metalogo.png",
+  //       width: 20,
+  //       height: 20,
+  //       alt: "My custom alt",
+  //     },
+  //   ],
+  // },
 };
 
 export default function RootLayout({
@@ -57,9 +58,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="flex flex-col min-h-screen">
-          <Header />
-          <main className="flex-grow">{children}</main>
-          <Footer />
+          <Suspense fallback={<div>Loading...</div>}>
+            <Header />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+          </Suspense>
         </div>
       </body>
     </html>
