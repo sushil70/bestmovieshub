@@ -6,7 +6,10 @@ import { z } from "zod";
 import FormInput from "@/components/ui/Input";
 import ComboboxForm from "@/components/ui/combobox";
 import { addMovie } from "@/app/actions/addMovie";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import CustomDatePicker from "@/components/ui/DatePicker";
+import getActors from "../actions/getActors";
+import { getDirector } from "../actions/addDirector";
 
 // Define the form schema using Zod
 const formSchema = z.object({
@@ -76,6 +79,7 @@ export default function AddForm({ setIsOpen }: any) {
     handleSubmit,
     setValue,
     getValues,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -86,7 +90,26 @@ export default function AddForm({ setIsOpen }: any) {
     },
   });
 
-  console.log("errors", errors);
+  const [actors, setActors] = useState<any[]>([]);
+  const [director, setDirector] = useState<any[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const { actors, error: actorsError } = await getActors();
+      if (actors) {
+        setActors(actors);
+      } else {
+        console.error(actorsError);
+      }
+
+      const { director, error: directorError } = await getDirector();
+      if (director) {
+        setDirector(director);
+      } else {
+        console.error(directorError);
+      }
+    })();
+  }, []);
 
   const onSubmit = async (data: any) => {
     console.log("onSubmit", data);
@@ -98,7 +121,7 @@ export default function AddForm({ setIsOpen }: any) {
         (n: any, index: number) => (data.title + (index + 1)).toString()
       ),
       backdropImage: `${data.title}b`,
-      year: data.releaseDate?.split("/")?.[2] || "",
+      year: data.releaseDate?.split("-")?.[0] || "",
       details: `${data.title} (${data?.releaseDate?.split("/")?.[2] || ""}) ${
         data.languages?.label ? data.languages?.label : ""
       }`,
@@ -119,7 +142,7 @@ export default function AddForm({ setIsOpen }: any) {
 
     if (result.success) {
       setSubmitStatus({ success: true, message: "Movie added successfully!" });
-      setIsOpen(true);
+      setIsOpen(false);
     } else {
       console.log("Failed to add movie:", result);
       setSubmitStatus({
@@ -227,15 +250,7 @@ export default function AddForm({ setIsOpen }: any) {
             setValue("actors", e as any);
           }}
           className=" w-1/2 mb-4 pr-2"
-          options={[
-            { id: "bhuvanBamAvnindraBam", label: "Bhuvan Bam" },
-            { id: "josephVijay", label: "Joseph Vijay" },
-            { id: "meenakshiChaudhary", label: "Meenakshi Chaudhary" },
-            {
-              id: "shriyaPilgaonkarSachinPilgaonkar",
-              label: "Shriya Pilgaonkar",
-            },
-          ]}
+          options={actors}
           initialSelectedOption={getValues("actors") || []}
           multiSelect={true}
         />
@@ -246,21 +261,26 @@ export default function AddForm({ setIsOpen }: any) {
             setValue("director", e as any);
           }}
           className=" w-1/2 mb-4 pr-2"
-          options={[
-            { id: "himankGaur", label: "Himank Gaur" },
-            { id: "venkatPrabhu", label: "Venkat Prabhu" },
-          ]}
+          options={director}
           initialSelectedOption={getValues("director") || []}
           multiSelect={true}
         />
 
-        <FormInput
+        <CustomDatePicker
+          control={control}
+          name="releaseDate"
+          placeholder="Release Date"
+          error={errors.releaseDate}
+          className="col-span-1"
+        />
+
+        {/* <FormInput
           label="Release Date"
           id="releaseDate"
           type="text"
           register={register}
           className="w-1/2 mb-4 pr-2"
-        />
+        /> */}
 
         <FormInput
           label="Description"

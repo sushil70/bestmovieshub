@@ -43,6 +43,10 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/icon.png" />
+        <meta
+          name="google-site-verification"
+          content="NN4vn7GIyVLHdcBVRveT5wQkd7U-DbuwamGe94Os0xA"
+        />
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1763907200549927"

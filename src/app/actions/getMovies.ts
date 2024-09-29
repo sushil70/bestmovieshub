@@ -5,11 +5,13 @@ import { PrismaClient } from "@prisma/client";
 export default async function getMovies({
   page,
   take,
+  searchQuery,
 }: // cursor,
 {
   page: number;
   take: number;
   cursor?: any;
+  searchQuery: string;
 }) {
   let movies: any;
   let error: string | null = null;
@@ -22,6 +24,23 @@ export default async function getMovies({
   try {
     [movies, total] = await Promise.all([
       prisma.allmovies.findMany({
+        select: {
+          id: true,
+          title: true,
+          details: true,
+          rating: true,
+          profileImage: true,
+        },
+        where: {
+          OR: [
+            {
+              title: { contains: searchQuery, mode: "insensitive" },
+            },
+            {
+              details: { contains: searchQuery, mode: "insensitive" },
+            },
+          ],
+        },
         skip,
         take,
         // cursor: cursor ? { id: cursor.id } : undefined,

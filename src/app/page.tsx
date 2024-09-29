@@ -4,12 +4,14 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Star } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import getMovies from "./actions/getMovies";
 
 export default function Home() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const query = searchParams.get("query");
 
   const [movies, setMovies] = useState<any | null>([]);
   const [error, setError] = useState<string | null>(null);
@@ -28,13 +30,14 @@ export default function Home() {
         take: 10,
         page: skip,
         // cursor: movies.nextCursor || null,
+        searchQuery: query || "",
       });
       console.log("movies", data, pagination);
       setMovies({ data: data, pagination });
       // setMovies({ data: data, pagination, nextCursor });
       setError(error);
     })();
-  }, [skip]);
+  }, [skip, query]);
 
   const handleItemClick = (id: number) => {
     router.push(`/details/${id}`);
@@ -67,76 +70,83 @@ export default function Home() {
       //   </div>
       // </header> */}
 
-      <main className="container mx-auto py-12 px-4 flex justify-evenly  ">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 w-3/4 max-w-[940px]">
-          {movies.data?.map((movie: any) => (
-            <Card
-              key={movie.id}
-              className=" overflow-hidden transition-transform hover:scale-105"
-            >
-              {/* <div className="relative">
+      <main className="  ">
+        <div className="h-[100px] max-w-[1536px]  w-full container m-auto px-4 mt-4 bg-slate-300 flex items-center ">
+          <div className="text-3xl  font-bold  text-gray-900">
+            {query ? `Search Results for "${query}"` : "Latest"}
+          </div>
+        </div>
+        <div className="container mx-auto pt-6 pb-12 px-4 flex justify-evenly">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 w-3/4 max-w-[940px]">
+            {movies.data?.map((movie: any, index: number) => (
+              <Card
+                key={index}
+                className=" overflow-hidden transition-transform hover:scale-105"
+              >
+                {/* <div className="relative">
                 <img
                   src={movie.profileImage}
                   alt={movie.title}
                   className="w-full h-80 object-cover"
                 /></div> */}
-              <div
-                key={movie.id}
-                className="bg-[#222] rounded-lg overflow-hidden"
-                onClick={() => handleItemClick(movie.id)}
-                onKeyDown={(e) => handleKeyDown(e, movie.id)}
-              >
-                <Image
-                  src={`https://res.cloudinary.com/dhzisk3o5/image/upload/${movie.profileImage}.jpg`}
-                  alt={movie.title}
-                  width={300}
-                  height={400}
-                  className="w-full h-80 object-cover"
-                />
-              </div>
-              <CardContent className="p-4">
-                <h3 className="font-bold text-xl mb-2 text-gray-900 dark:text-white">
-                  {movie.details}
-                </h3>
-                <div className="flex justify-between flex-wrap items-center mb-2">
-                  {movie.genre?.map(
-                    (genre: { label: string; id: string }, index: number) => (
-                      <Badge variant="outline" key={index}>
-                        {genre.label}
-                      </Badge>
-                    )
-                  )}
-                  {/* <span className="text-sm text-gray-600 dark:text-gray-400">
+                <div
+                  key={movie.id}
+                  className="bg-[#222] rounded-lg overflow-hidden"
+                  onClick={() => handleItemClick(movie.id)}
+                  onKeyDown={(e) => handleKeyDown(e, movie.id)}
+                >
+                  <Image
+                    src={`https://res.cloudinary.com/dhzisk3o5/image/upload/${movie.profileImage}.jpg`}
+                    alt={movie.title}
+                    width={300}
+                    height={400}
+                    className="w-full h-80 object-cover"
+                  />
+                </div>
+                <CardContent className="p-4">
+                  <h3 className="font-bold text-xl mb-2 text-gray-900 dark:text-white">
+                    {movie.details}
+                  </h3>
+                  <div className="flex flex-wrap items-center mb-2">
+                    {movie.genre?.map(
+                      (genre: { label: string; id: string }, index: number) => (
+                        <Badge variant="outline" key={index}>
+                          {genre.label}
+                        </Badge>
+                      )
+                    )}
+                    {/* <span className="text-sm text-gray-600 dark:text-gray-400">
                     {movie.year}
                   </span> */}
-                </div>
-                <div className="flex items-center">
-                  <Star className="w-5 h-5 text-yellow-400 mr-1" />
-                  <span className="text-gray-700 dark: text-gray-300">
-                    {movie.rating}
-                  </span>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-        <div className="flex justify-center mt-8 w-1/4">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setSkip(skip - 10)}
-            disabled={skip === 0}
-          >
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setSkip(skip + 10)}
-            disabled={skip >= movies?.pagination?.total}
-          >
-            Next
-          </Button>
+                  </div>
+                  <div className="flex items-center">
+                    <Star className="w-5 h-5 text-yellow-400 mr-1" />
+                    <span className="text-gray-700 dark: text-gray-300">
+                      {movie.rating}
+                    </span>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          <div className="flex justify-center mt-8 w-1/4">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setSkip(skip - 10)}
+              disabled={skip === 0}
+            >
+              Previous
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setSkip(skip + 10)}
+              disabled={skip >= movies?.pagination?.total}
+            >
+              Next
+            </Button>
+          </div>
         </div>
       </main>
 
@@ -154,7 +164,7 @@ export default function Home() {
                     onKeyDown={(e) => handleKeyDown(e, movie.id)}
                   >
                     <Image
-                      src={`https://res.cloudinary.com/dhzisk3o5/image/upload/v1726825410/${movie.profileImage}.jpg`}
+                      src={`https://res.cloudinary.com/dhzisk3o5/image/upload/${movie.profileImage}.jpg`}
                       alt={movie.title}
                       width={300}
                       height={400}

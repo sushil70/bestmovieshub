@@ -1,4 +1,5 @@
 "use client";
+
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import manageAccess from "@/app/actions/AccessManage";
@@ -16,6 +17,10 @@ import {
 } from "@/components/ui/Table";
 import { Badge } from "@/components/ui/Badge";
 import { Star } from "lucide-react";
+import AddActorsForm from "./AddActorsForm";
+import { addActors } from "../actions/addActors";
+import { TOCAMELCASE } from "@/lib/constant";
+import { addDirector } from "../actions/addDirector";
 
 const UserTable: React.FC<any> = ({ data }) => {
   const router = useRouter();
@@ -23,6 +28,8 @@ const UserTable: React.FC<any> = ({ data }) => {
 
   const [checkingAccess, setCheckingAccess] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenActors, setIsOpenActors] = useState(false);
+  const [isOpenDirector, setIsOpenDirector] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -36,6 +43,50 @@ const UserTable: React.FC<any> = ({ data }) => {
   if (checkingAccess) {
     return <div></div>;
   }
+
+  const handleAddActors = async (data: []) => {
+    console.log("handleAddActors", data);
+
+    const formData = data.map((item: any) => ({
+      id: TOCAMELCASE(item.id),
+      name: item.name,
+    }));
+
+    const result = await addActors(formData);
+
+    if (result.success) {
+      // setSubmitStatus({ success: true, message: "Movie added successfully!" });
+      setIsOpenActors(false);
+    } else {
+      console.log("Failed to add Actors:", result);
+      // setSubmitStatus({
+      //   success: false,
+      //   message: result.error || "Failed to add movie",
+      // });
+    }
+  };
+
+  const handleAddDirector = async (data: []) => {
+    console.log("handleAddDirector", data);
+
+    const formData = data.map((item: any) => ({
+      id: TOCAMELCASE(item.id),
+      name: item.name,
+    }));
+
+    const result = await addDirector(formData);
+
+    if (result.success) {
+      // setSubmitStatus({ success: true, message: "Movie added successfully!" });
+      setIsOpenDirector(false);
+    } else {
+      console.log("Failed to add Director:", result);
+      // setSubmitStatus({
+      //   success: false,
+      //   message: result.error || "Failed to add movie",
+      // });
+    }
+  };
 
   // const filteredMovies = mockMovies.filter(movie =>
   //   movie.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -59,13 +110,31 @@ const UserTable: React.FC<any> = ({ data }) => {
               // onChange={(e) => setSearchTerm(e.target.value)}
             />
 
-            <Button
-              variant="default"
-              className="mb-8 w-fit flex mr-8 "
-              onClick={() => setIsOpen(true)}
-            >
-              Add Movie
-            </Button>
+            <div className="flex">
+              <Button
+                variant="default"
+                className="mb-8 w-fit flex mr-8 "
+                onClick={() => setIsOpenDirector(true)}
+              >
+                Add Director
+              </Button>
+
+              <Button
+                variant="default"
+                className="mb-8 w-fit flex mr-8 "
+                onClick={() => setIsOpenActors(true)}
+              >
+                Add Actors
+              </Button>
+
+              <Button
+                variant="default"
+                className="mb-8 w-fit flex mr-8 "
+                onClick={() => setIsOpen(true)}
+              >
+                Add Movie
+              </Button>
+            </div>
           </div>
         </header>
         <main className="max-w-7xl mx-auto py-6">
@@ -120,6 +189,22 @@ const UserTable: React.FC<any> = ({ data }) => {
         title="Add Movies"
       >
         <AddForm setIsOpen={setIsOpen} />
+      </Modal>
+
+      <Modal
+        isOpen={isOpenActors}
+        onClose={() => setIsOpenActors(false)}
+        title="Add Actors"
+      >
+        <AddActorsForm handleAddActors={handleAddActors} />
+      </Modal>
+
+      <Modal
+        isOpen={isOpenDirector}
+        onClose={() => setIsOpenDirector(false)}
+        title="Add Director"
+      >
+        <AddActorsForm handleAddActors={handleAddDirector} />
       </Modal>
     </>
   );

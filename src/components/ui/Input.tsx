@@ -3,9 +3,9 @@ import { UseFormRegister, FieldError } from "react-hook-form";
 
 interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement | HTMLSelectElement> {
-  label: string;
+  label?: string;
   id: string;
-  register: UseFormRegister<any>;
+  register?: UseFormRegister<any>;
   error?: FieldError;
   className?: string;
   type?: string;
@@ -24,6 +24,8 @@ export default function FormInput({
   textArea = false,
   ...props
 }: InputProps) {
+  const registerProps = register ? { ...register(id) } : {};
+
   return (
     <div className={className}>
       {textArea ? (
@@ -35,7 +37,7 @@ export default function FormInput({
           }`}
           aria-invalid={error ? "true" : "false"}
           aria-describedby={error ? `${id}-error` : undefined}
-          {...register(id)}
+          {...registerProps}
           // {...props}
         />
       ) : (
@@ -49,7 +51,7 @@ export default function FormInput({
           aria-describedby={error ? `${id}-error` : undefined}
           type={type}
           min={min}
-          {...register(id)}
+          {...registerProps}
           {...props}
         />
       )}

@@ -50,3 +50,13 @@ model allmovies{
   funFacts String[] @default([])
   languages Json? 
 }
+
+model actors{
+  id String @id @map("_id")
+  label String
+}
+
+model director{
+  id String @id @map("_id")
+  label String
+}

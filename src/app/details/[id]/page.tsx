@@ -62,9 +62,11 @@ const Detail = () => {
                 {movieDetails.runtime}
               </span>
               <span className="bg-gray-800 px-2 py-1 rounded">
-                {moment("26-09-2024T00:00:00", "DD-MM-YYYY").format(
-                  "MMMM DD, YYYY"
-                )}
+                {movieDetails.releaseDate
+                  ? moment(movieDetails.releaseDate, "DD-MM-YYYY").format(
+                      "MMMM DD, YYYY"
+                    )
+                  : ""}
               </span>
             </div>
           </div>
@@ -260,18 +262,18 @@ const Detail = () => {
             )}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+          <div className="flex flex-wrap gap-8 mt-8">
             <div
-              className={`bg-white rounded-lg shadow-lg p-6 col-span-${
-                movieDetails.awards?.length > 0 ? 1 : 2
-              }`}
+              className={`bg-white rounded-lg shadow-lg p-6 md:w-[calc(${
+                movieDetails.awards?.length > 0 ? 50 : 100
+              }%-16px)]`}
             >
               <h2 className="text-2xl font-semibold mb-4">Storyline</h2>
               <p className="text-gray-700">{movieDetails.storySummary}</p>
             </div>
 
             {movieDetails.awards?.length > 0 ? (
-              <div className="bg-white rounded-lg shadow-lg p-6">
+              <div className="bg-white rounded-lg shadow-lg p-6 md:w-[calc(50%-16px)]">
                 <h2 className="text-2xl font-semibold mb-4">Awards</h2>
                 <ul className="space-y-2">
                   {movieDetails.awards?.map((award: string, index: number) => (

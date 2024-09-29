@@ -1,8 +1,26 @@
+"use client";
+import useSearch from "@/app/actions/store/Search";
 import { Input } from "@/components/ui/SearchInput";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
+  const { search, setSearch } = useSearch();
+
+  const router = useRouter();
+
+  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if (search) {
+        router.push(`/?query=${encodeURIComponent(search)}`);
+      } else {
+        router.push(`/`);
+      }
+    }
+  };
+
   return (
     <header className="bg-white shadow-sm">
       <div className="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center">
@@ -29,6 +47,11 @@ export default function Header() {
           type="search"
           placeholder="Search movies..."
           className="max-w-xs"
+          value={search}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setSearch(e.target.value)
+          }
+          onKeyPress={handleSearch}
         />
       </div>
     </header>
