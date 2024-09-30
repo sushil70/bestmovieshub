@@ -81,7 +81,7 @@ export default function Home() {
             {movies.data?.map((movie: any, index: number) => (
               <Card
                 key={index}
-                className=" overflow-hidden transition-transform hover:scale-105"
+                className="cursor-pointer overflow-hidden transition-transform hover:scale-105"
                 onClick={() => handleItemClick(movie.id)}
                 onKeyDown={(e) => handleKeyDown(e, movie.id)}
               >

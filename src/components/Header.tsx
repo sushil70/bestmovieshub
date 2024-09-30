@@ -43,16 +43,25 @@ export default function Header() {
           />
           {/* </div> */}
         </Link>
-        <Input
-          type="search"
-          placeholder="Search movies..."
-          className="max-w-xs"
-          value={search}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setSearch(e.target.value)
-          }
-          onKeyPress={handleSearch}
-        />
+        <div className="flex space-x-4">
+          <div
+            onClick={() => router.push("/about")}
+            className="cursor-pointer flex items-center mr-6 hover:text-blue-500 border-b-2 border-blue-500"
+          >
+            About
+          </div>
+
+          <Input
+            type="search"
+            placeholder="Search movies..."
+            className="max-w-xs"
+            value={search}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setSearch(e.target.value)
+            }
+            onKeyPress={handleSearch}
+          />
+        </div>
       </div>
     </header>
   );
