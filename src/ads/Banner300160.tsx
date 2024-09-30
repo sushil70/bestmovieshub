@@ -27,7 +27,7 @@ export default function Banner300160() {
 
   return (
     <>
-      <div className="w-[160px] h-[300px]" ref={banner}></div>
+      <div className="w-[160px] h-[300px] bg-slate-800" ref={banner}></div>
     </>
   );
 }

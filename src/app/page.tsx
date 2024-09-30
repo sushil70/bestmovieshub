@@ -130,7 +130,7 @@ export default function Home() {
               </Card>
             ))}
           </div>
-          <div className="flex justify-center mt-8 w-1/4">
+          <div className="flex justify-center mt-8 w-[180px] h-[320px]">
             <Banner300160 />
           </div>
         </div>
