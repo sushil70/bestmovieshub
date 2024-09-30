@@ -51,6 +51,7 @@ export default function RootLayout({
         <script
           type="text/javascript"
           src="//pl24551229.cpmrevenuegate.com/11/69/5e/11695ee6f6b6a6f2271e7f2629307b20.js"
+          async
         ></script>
         {/* <script
           async
