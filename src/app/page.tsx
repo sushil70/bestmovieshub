@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import getMovies from "./actions/getMovies";
-import Banner300160 from "@/ads/Banner300160";
+import AdBanner from "@/ads/Banner300160";
 
 export default function Home() {
   const router = useRouter();
@@ -130,8 +130,17 @@ export default function Home() {
               </Card>
             ))}
           </div>
-          <div className="flex justify-center mt-8 w-[180px] h-[320px]">
-            <Banner300160 />
+          <div className="flex flex-wrap mt-8 w-[180px] ">
+            <AdBanner
+              height={600}
+              width={160}
+              id="6d9015fbd5dd50a315e048966c6f8b23"
+            />
+            <AdBanner
+              height={300}
+              width={160}
+              id="44f4f26a4201f53bc307c912b35a651f"
+            />
           </div>
         </div>
       </main>

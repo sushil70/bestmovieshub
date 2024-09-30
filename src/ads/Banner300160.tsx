@@ -2,14 +2,14 @@
 
 import { useEffect, useRef } from "react";
 
-export default function Banner300160() {
+export default function AdBanner({ id, height, width }: any) {
   const banner = useRef<HTMLDivElement>(null);
 
   const atOptions = {
-    key: "44f4f26a4201f53bc307c912b35a651f",
+    key: id,
     format: "iframe",
-    height: 300,
-    width: 160,
+    height: height,
+    width: width,
     params: {},
   };
   useEffect(() => {
@@ -17,8 +17,7 @@ export default function Banner300160() {
       const conf = document.createElement("script");
       const script = document.createElement("script");
       script.type = "text/javascript";
-      script.src =
-        "//www.topcreativeformat.com/44f4f26a4201f53bc307c912b35a651f/invoke.js";
+      script.src = `//www.topcreativeformat.com/${id}/invoke.js`;
       conf.innerHTML = `atOptions = ${JSON.stringify(atOptions)}`;
 
       banner.current.append(conf);
@@ -28,7 +27,7 @@ export default function Banner300160() {
 
   return (
     <>
-      <div className="w-[160px] h-[300px] bg-slate-800" ref={banner}></div>
+      <div className="w-[160px]  bg-slate-800" ref={banner}></div>
     </>
   );
 }
