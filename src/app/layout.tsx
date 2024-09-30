@@ -49,10 +49,14 @@ export default function RootLayout({
           content="NN4vn7GIyVLHdcBVRveT5wQkd7U-DbuwamGe94Os0xA"
         />
         <script
+          type="text/javascript"
+          src="//pl24551229.cpmrevenuegate.com/11/69/5e/11695ee6f6b6a6f2271e7f2629307b20.js"
+        ></script>
+        {/* <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1763907200549927"
           crossOrigin="anonymous"
-        ></script>
+        ></script> */}
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
