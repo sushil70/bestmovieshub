@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import getMovies from "./actions/getMovies";
+import Banner300160 from "@/ads/Banner300160";
 
 export default function Home() {
   const router = useRouter();
@@ -130,22 +131,7 @@ export default function Home() {
             ))}
           </div>
           <div className="flex justify-center mt-8 w-1/4">
-            {/* <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setSkip(skip - 10)}
-              disabled={skip === 0}
-            >
-              Previous
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setSkip(skip + 10)}
-              disabled={skip >= movies?.pagination?.total}
-            >
-              Next
-            </Button> */}
+            <Banner300160 />
           </div>
         </div>
       </main>
