@@ -131,16 +131,20 @@ export default function Home() {
             ))}
           </div>
           <div className="flex flex-wrap mt-8 w-[180px] ">
-            <AdBanner
-              height={600}
-              width={160}
-              id="6d9015fbd5dd50a315e048966c6f8b23"
-            />
-            <AdBanner
-              height={300}
-              width={160}
-              id="44f4f26a4201f53bc307c912b35a651f"
-            />
+            <div>
+              <AdBanner
+                height={600}
+                width={160}
+                id="6d9015fbd5dd50a315e048966c6f8b23"
+              />
+            </div>
+            <div>
+              <AdBanner
+                height={300}
+                width={160}
+                id="44f4f26a4201f53bc307c912b35a651f"
+              />
+            </div>
           </div>
         </div>
       </main>
