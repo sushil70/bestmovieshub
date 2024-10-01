@@ -4,13 +4,14 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Star } from "lucide-react";
 import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import getMovies from "./actions/getMovies";
 import AdBanner from "@/ads/Banner300160";
+import Link from "next/link";
 
 export default function Home() {
-  const router = useRouter();
+  // const router = useRouter();
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("s");
   const tagQuery = searchParams.get("t");
@@ -43,20 +44,20 @@ export default function Home() {
     })();
   }, [skip, searchQuery, tagQuery]);
 
-  const handleItemClick = (id: number, title: string) => {
-    router.push(`/details/${id}/${title.replace(/ /g, "-")}`);
-  };
+  // const handleItemClick = (id: number, title: string) => {
+  //   router.push(`/details/${id}/${title.replace(/ /g, "-")}`);
+  // };
 
-  const handleKeyDown = (
-    event: React.KeyboardEvent,
-    id: number,
-    title: string
-  ) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      handleItemClick(id, title);
-    }
-  };
+  // const handleKeyDown = (
+  //   event: React.KeyboardEvent,
+  //   id: number,
+  //   title: string
+  // ) => {
+  //   if (event.key === "Enter" || event.key === " ") {
+  //     event.preventDefault();
+  //     handleItemClick(id, title);
+  //   }
+  // };
 
   return (
     <>
@@ -80,60 +81,70 @@ export default function Home() {
 
       <main className="  ">
         <div className="h-[100px] max-w-[1536px]  w-full container m-auto px-4 mt-4 bg-slate-300 flex items-center ">
-          <div className="text-3xl  font-bold  text-gray-900">
-            {searchQuery || tagQuery
-              ? `Search Results for "${searchQuery || tagQuery}"`
-              : "Latest"}
-          </div>
-          <h1 style={{ visibility: "hidden" }} className="text-[2px]">
-            Best Movies Hub
+          <h1>
+            <div className="text-3xl  font-bold  text-gray-900">
+              {searchQuery || tagQuery
+                ? `Search Results for "${searchQuery || tagQuery}"`
+                : "Latest"}
+            </div>
           </h1>
         </div>
         <div className="container mx-auto pt-6 pb-12 px-4 flex justify-evenly">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 w-3/4 max-w-[940px]">
             {movies.data?.map((movie: any, index: number) => (
-              <Card
+              <Link
                 key={index}
-                className="cursor-pointer overflow-hidden transition-transform hover:scale-105"
-                onClick={() => handleItemClick(movie.id, movie.details)}
-                onKeyDown={(e) => handleKeyDown(e, movie.id, movie.details)}
+                href={`/details/${movie.id}/${movie.details.replace(
+                  / /g,
+                  "-"
+                )}`}
+                className="cursor-pointer rounded-lg border bg-card text-card-foreground shadow-sm"
               >
-                <div
-                  key={movie.id}
-                  className="bg-[#222] rounded-lg overflow-hidden"
+                <Card
+                  className="cursor-pointer overflow-hidden transition-transform hover:scale-105"
+                  // onClick={() => handleItemClick(movie.id, movie.details)}
+                  // onKeyDown={(e) => handleKeyDown(e, movie.id, movie.details)}
                 >
-                  <Image
-                    src={`https://res.cloudinary.com/dhzisk3o5/image/upload/${movie.profileImage}.jpg`}
-                    alt={movie.title}
-                    width={300}
-                    height={400}
-                    className="w-full h-80 object-cover"
-                  />
-                </div>
-                <CardContent className="p-4">
-                  <h2 className="font-bold text-xl mb-2 text-gray-900 dark:text-white">
-                    {movie.details}
-                  </h2>
-                  <div className="flex flex-wrap items-center mb-2">
-                    {movie.genre?.map(
-                      (genre: { label: string; id: string }, index: number) => (
-                        <Badge variant="outline" key={index}>
-                          {genre.label}
-                        </Badge>
-                      )
-                    )}
-                    {/* <span className="text-sm text-gray-600 dark:text-gray-400">
+                  <div
+                    key={movie.id}
+                    className="bg-[#222] rounded-lg overflow-hidden"
+                  >
+                    <Image
+                      src={`https://res.cloudinary.com/dhzisk3o5/image/upload/${movie.profileImage}.jpg`}
+                      alt={movie.title}
+                      width={300}
+                      height={400}
+                      className="w-full h-80 object-cover"
+                    />
+                  </div>
+                  <CardContent className="p-4">
+                    <h2 className="font-bold text-xl mb-2 text-gray-900 dark:text-white">
+                      {movie.details}
+                    </h2>
+                    <div className="flex flex-wrap items-center mb-2">
+                      {movie.genre?.map(
+                        (
+                          genre: { label: string; id: string },
+                          index: number
+                        ) => (
+                          <Badge variant="outline" key={index}>
+                            {genre.label}
+                          </Badge>
+                        )
+                      )}
+                      {/* <span className="text-sm text-gray-600 dark:text-gray-400">
                     {movie.year}
                   </span> */}
-                  </div>
-                  <div className="flex items-center">
-                    <Star className="w-5 h-5 text-yellow-400 mr-1" />
-                    <span className="text-gray-700 dark: text-gray-300">
-                      {movie.rating}
-                    </span>
-                  </div>
-                </CardContent>
-              </Card>
+                    </div>
+                    <div className="flex items-center">
+                      <Star className="w-5 h-5 text-yellow-400 mr-1" />
+                      <span className="text-gray-700 dark: text-gray-300">
+                        {movie.rating}
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
           <div className="flex flex-wrap mt-8 w-[180px] ">

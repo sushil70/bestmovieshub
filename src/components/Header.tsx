@@ -28,28 +28,22 @@ export default function Header() {
           href="/"
           className="text-3xl font-bold text-gray-900 mb-4 sm:mb-0"
         >
-          {/* <img href="/" src="/images/logo.png" alt="Logo" /> */}
-          {/* <div className="relative w-[100px] "> */}
           <Image
             src="/images/logo.png"
             alt="logo"
-            // fill={true}
             width={150}
             height={100}
-            // height={"auto"}
-            // objectFit="fit"
             objectFit="contain"
             className="rounded-md"
           />
-          {/* </div> */}
         </Link>
         <div className="flex space-x-4">
-          <div
-            onClick={() => router.push("/about")}
+          <Link
+            href="/about"
             className="cursor-pointer flex items-center mr-6 hover:text-blue-500 border-b-2 border-blue-500"
           >
             About
-          </div>
+          </Link>
 
           <Input
             type="search"

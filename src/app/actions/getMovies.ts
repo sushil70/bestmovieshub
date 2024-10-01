@@ -54,7 +54,21 @@ export default async function getMovies({
           updatedDate: "desc",
         },
       }),
-      prisma.allmovies.count(),
+      prisma.allmovies.count({
+        where: {
+          AND: [
+            searchQuery
+              ? {
+                  OR: [
+                    { title: { contains: searchQuery, mode: "insensitive" } },
+                    { details: { contains: searchQuery, mode: "insensitive" } },
+                  ],
+                }
+              : {},
+            tagQuery ? { tags: { has: tagQuery } } : {},
+          ],
+        },
+      }),
     ]);
     // const lastMovies = movies[movies.length - 1];
     // nextCursor = lastMovies ? { id: lastMovies.id } : undefined;
