@@ -8,7 +8,7 @@ export default function About() {
       </h1>
 
       <p className="mt-8">
-        Welcome to <b>Top Movies Hub</b>, your one-stop destination for the
+        Welcome to <b>Best Movies Hub</b>, your one-stop destination for the
         latest movies in high quality and lightning-fast downloads! Our mission
         is simple: to make it easier for movie enthusiasts to access the newest
         and most exciting films from across the world, in the best possible
@@ -23,15 +23,15 @@ export default function About() {
         available.
       </p>
       <p className="mt-8">
-        At <b>Top Movies Hub</b>, we believe that downloading movies should be a
-        hassle-free experience. That&aposs why we use advanced technology to
+        At <b>Best Movies Hub</b>, we believe that downloading movies should be
+        a hassle-free experience. That&aposs why we use advanced technology to
         provide you with high-speed downloads, so you can enjoy your favorite
         movies in the best quality, without interruption.
       </p>
       <p className="mt-8">
         We are committed to delivering a user-friendly platform, easy
         navigation, and regular updates to enhance your movie-watching
-        experience. Thank you for choosing <b>Top Movies Hub</b> – where your
+        experience. Thank you for choosing <b>Best Movies Hub</b> – where your
         entertainment is just a click away.
       </p>
     </div>

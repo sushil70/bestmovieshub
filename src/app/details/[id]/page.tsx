@@ -425,7 +425,7 @@ const Detail = () => {
             <AdBanner
               height={600}
               width={160}
-              id="6d9015fbd5dd50a315e048966c6f8b23"
+              id="66e9e17ceba1bcaadbf610fdca51e477"
             />
           </div>
         </div>

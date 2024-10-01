@@ -131,18 +131,18 @@ export default function Home() {
             ))}
           </div>
           <div className="flex flex-wrap mt-8 w-[180px] ">
-            <div>
+            {/* <div>
               <AdBanner
                 height={600}
                 width={160}
-                id="6d9015fbd5dd50a315e048966c6f8b23"
+                id="66e9e17ceba1bcaadbf610fdca51e477"
               />
-            </div>
+            </div> */}
             <div>
               <AdBanner
                 height={300}
                 width={160}
-                id="44f4f26a4201f53bc307c912b35a651f"
+                id="8858a57973b8ec41f6cf2680f8148d23"
               />
             </div>
           </div>

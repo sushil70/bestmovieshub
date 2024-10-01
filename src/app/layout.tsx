@@ -50,7 +50,7 @@ export default function RootLayout({
         />
         <script
           type="text/javascript"
-          src="//pl24551229.cpmrevenuegate.com/11/69/5e/11695ee6f6b6a6f2271e7f2629307b20.js"
+          src="//pl24559249.cpmrevenuegate.com/5a/0f/37/5a0f371c3d1a1a74cd3980b00c921fd7.js"
           async
         ></script>
         {/* <script
