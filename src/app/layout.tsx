@@ -22,8 +22,37 @@ export const metadata: Metadata = {
   // icons: {
   //   icon: "/metaLogo.png",
   // },
+  keywords: [
+    "Best Movies Hub",
+    "Download",
+    "Movies",
+    "Hd Movies",
+    "Free Download",
+    "Best Download",
+    "Hd Movies Download",
+    "Hd Movies Free Download",
+    "Hd Movies Download Site",
+    "Hd Movies Free Download Site",
+  ],
 
   openGraph: {
+    title: "Best Movies Hub",
+    description: "Best Movies Hub, A free download movies website",
+    url: "https://bestmovieshub.fun",
+    siteName: "Best Movies Hub",
+    tags: [
+      "Best Movies Hub",
+      "Download",
+      "Movies",
+      "Hd Movies",
+      "Free Download",
+      "Best Download",
+      "Hd Movies Download",
+      "Hd Movies Free Download",
+      "Hd Movies Download Site",
+      "Hd Movies Free Download Site",
+    ],
+
     images: [
       {
         url: "/icon.png",
