@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import moment from "moment";
 import YoutubePlayer from "@/components/YoutubePlayer";
 import AdBanner from "@/ads/Banner300160";
+import Link from "next/link";
 
 const Detail = () => {
   const [movieDetails, setMovieDetails] = useState<any | null>({});
@@ -53,7 +54,7 @@ const Detail = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
           <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-            <h1 className="text-5xl font-bold mb-2">{movieDetails.title}</h1>
+            <h1 className="text-5xl font-bold mb-2">{movieDetails.details}</h1>
             <div className="flex items-center gap-4 mb-4">
               <span className="flex items-center bg-yellow-400 text-black px-2 py-1 rounded">
                 <Star className="mr-1 h-4 w-4" />
@@ -89,6 +90,9 @@ const Detail = () => {
               </div>
               <div className="md:col-span-2">
                 <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
+                  <h2 className="text-3xl font-bold mb-2">
+                    {movieDetails.title}
+                  </h2>
                   <p className="text-lg mb-4">{movieDetails.description}</p>
                   <div className="grid grid-cols-2 gap-4 mb-4">
                     <div>
@@ -167,7 +171,10 @@ const Detail = () => {
             </div>
 
             <div className="bg-white rounded-lg shadow-lg p-6  mb-8">
-              <h2 className="text-2xl font-semibold mb-4">Screenshots</h2>
+              <h2 className="text-2xl font-semibold mb-4 text-center">
+                Download {movieDetails.details}
+                <br />: Screenshots :
+              </h2>
               <div className="flex flex-wrap  sm:flex-cols-1">
                 {movieDetails.images?.length > 0 &&
                   movieDetails.images?.map((image: string, index: number) => (
@@ -217,7 +224,8 @@ const Detail = () => {
 
             <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
               <h2 className="text-2xl font-semibold mb-4 text-center">
-                Download Links
+                Download {movieDetails.details}
+                <br />: Download Links :
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {movieDetails.downloadLinks?.map((link: any, index: number) => (
@@ -239,14 +247,20 @@ const Detail = () => {
                   movieDetails.soundtrack?.length ? 66.6667 : 100
                 }%-16px)]`}
               >
-                <h2 className="text-2xl font-semibold mb-4">Trailer</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-center">
+                  Download {movieDetails.details}
+                  <br />: Trailer :
+                </h2>
                 <div className="relative w-full aspect-video  ">
                   <YoutubePlayer videoId={movieDetails.trailerLink} />
                 </div>
               </div>
               {movieDetails.soundtrack?.length ? (
                 <div className="bg-white rounded-lg shadow-lg p-6 w-full md:w-[calc(33.3333%-16px)]">
-                  <h2 className="text-2xl font-semibold mb-4">Soundtrack</h2>
+                  <h2 className="text-2xl font-semibold mb-4 text-center">
+                    Download {movieDetails.details}
+                    <br />: Soundtrack :
+                  </h2>
                   <ul className="space-y-2">
                     {movieDetails.soundtrack?.map(
                       (track: any, index: number) => (
@@ -274,13 +288,19 @@ const Detail = () => {
                   movieDetails.awards?.length > 0 ? 50 : 100
                 }%-16px)]`}
               >
-                <h2 className="text-2xl font-semibold mb-4">Storyline</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-center">
+                  Download {movieDetails.details}
+                  <br />: Storyline :
+                </h2>
                 <p className="text-gray-700">{movieDetails.storySummary}</p>
               </div>
 
               {movieDetails.awards?.length > 0 ? (
-                <div className="bg-white rounded-lg shadow-lg p-6 md:w-[calc(50%-16px)]">
-                  <h2 className="text-2xl font-semibold mb-4">Awards</h2>
+                <div className="bg-white rounded-lg shadow-lg p-6 md:w-[calc(50%-16px)] text-center">
+                  <h2 className="text-2xl font-semibold mb-4">
+                    Download {movieDetails.details}
+                    <br />: Awards :
+                  </h2>
                   <ul className="space-y-2">
                     {movieDetails.awards?.map(
                       (award: string, index: number) => (
@@ -299,7 +319,10 @@ const Detail = () => {
 
             <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="bg-white rounded-lg shadow-lg p-6">
-                <h2 className="text-2xl font-semibold mb-4">Did You Know?</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-center">
+                  Download {movieDetails.details}
+                  <br />: Did You Know? :
+                </h2>
                 <ul className="space-y-2">
                   {movieDetails.funFacts?.map((fact: string, index: number) => (
                     <li key={index} className="flex items-start">
@@ -310,7 +333,10 @@ const Detail = () => {
                 </ul>
               </div>
               <div className="bg-white rounded-lg shadow-lg p-6">
-                <h2 className="text-2xl font-semibold mb-4">Reviews</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-center">
+                  Download {movieDetails.details}
+                  <br />: Reviews :
+                </h2>
                 <div className="space-y-4">
                   {movieDetails.reviews?.map((review: any, index: number) => (
                     <div
@@ -332,7 +358,10 @@ const Detail = () => {
             </div>
 
             <div className="bg-white rounded-lg shadow-lg p-6 mt-8">
-              <h2 className="text-2xl font-semibold mb-4">Similar Movies</h2>
+              <h2 className="text-2xl font-semibold mb-4 text-center">
+                Download {movieDetails.details}
+                <br />: Similar Movies :
+              </h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                 {movieDetails.similarMovies?.map(
                   (movie: any, index: number) => (
@@ -410,12 +439,13 @@ const Detail = () => {
                 <h2 className="text-2xl font-semibold mb-4">Tags</h2>
                 <div className="flex flex-wrap gap-2">
                   {movieDetails.tags?.map((tag: string, index: number) => (
-                    <span
+                    <Link
                       key={index}
-                      className="bg-gray-200 px-3 py-1 rounded-full text-sm"
+                      href={`/?t=${encodeURIComponent(tag)}`}
+                      className="bg-gray-200 px-3 py-1 rounded-full text-sm cursor-pointer"
                     >
-                      {tag}
-                    </span>
+                      #{tag}
+                    </Link>
                   ))}
                 </div>
               </div>

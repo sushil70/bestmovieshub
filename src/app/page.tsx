@@ -12,7 +12,8 @@ import AdBanner from "@/ads/Banner300160";
 export default function Home() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const query = searchParams.get("s");
+  const searchQuery = searchParams.get("s");
+  const tagQuery = searchParams.get("t");
 
   const [movies, setMovies] = useState<any | null>([]);
   const [error, setError] = useState<string | null>(null);
@@ -22,6 +23,7 @@ export default function Home() {
 
   useEffect(() => {
     (async () => {
+      console.log("searchQuery", searchQuery, tagQuery);
       const {
         movies: data,
         error,
@@ -31,23 +33,28 @@ export default function Home() {
         take: 10,
         page: skip,
         // cursor: movies.nextCursor || null,
-        searchQuery: query || "",
+        searchQuery: searchQuery || "",
+        tagQuery: tagQuery || "",
       });
       console.log("movies", data, pagination);
       setMovies({ data: data, pagination });
       // setMovies({ data: data, pagination, nextCursor });
       setError(error);
     })();
-  }, [skip, query]);
+  }, [skip, searchQuery, tagQuery]);
 
-  const handleItemClick = (id: number) => {
-    router.push(`/details/${id}`);
+  const handleItemClick = (id: number, title: string) => {
+    router.push(`/details/${id}/${title.replace(/ /g, "-")}`);
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent, id: number) => {
+  const handleKeyDown = (
+    event: React.KeyboardEvent,
+    id: number,
+    title: string
+  ) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-      handleItemClick(id);
+      handleItemClick(id, title);
     }
   };
 
@@ -74,8 +81,13 @@ export default function Home() {
       <main className="  ">
         <div className="h-[100px] max-w-[1536px]  w-full container m-auto px-4 mt-4 bg-slate-300 flex items-center ">
           <div className="text-3xl  font-bold  text-gray-900">
-            {query ? `Search Results for "${query}"` : "Latest"}
+            {searchQuery || tagQuery
+              ? `Search Results for "${searchQuery || tagQuery}"`
+              : "Latest"}
           </div>
+          <h1 style={{ visibility: "hidden" }} className="text-[2px]">
+            Best Movies Hub
+          </h1>
         </div>
         <div className="container mx-auto pt-6 pb-12 px-4 flex justify-evenly">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 w-3/4 max-w-[940px]">
@@ -83,15 +95,9 @@ export default function Home() {
               <Card
                 key={index}
                 className="cursor-pointer overflow-hidden transition-transform hover:scale-105"
-                onClick={() => handleItemClick(movie.id)}
-                onKeyDown={(e) => handleKeyDown(e, movie.id)}
+                onClick={() => handleItemClick(movie.id, movie.details)}
+                onKeyDown={(e) => handleKeyDown(e, movie.id, movie.details)}
               >
-                {/* <div className="relative">
-                <img
-                  src={movie.profileImage}
-                  alt={movie.title}
-                  className="w-full h-80 object-cover"
-                /></div> */}
                 <div
                   key={movie.id}
                   className="bg-[#222] rounded-lg overflow-hidden"
@@ -105,9 +111,9 @@ export default function Home() {
                   />
                 </div>
                 <CardContent className="p-4">
-                  <h3 className="font-bold text-xl mb-2 text-gray-900 dark:text-white">
+                  <h2 className="font-bold text-xl mb-2 text-gray-900 dark:text-white">
                     {movie.details}
-                  </h3>
+                  </h2>
                   <div className="flex flex-wrap items-center mb-2">
                     {movie.genre?.map(
                       (genre: { label: string; id: string }, index: number) => (
@@ -148,39 +154,6 @@ export default function Home() {
           </div>
         </div>
       </main>
-
-      {/* <main className="container mx-auto p-4">
-        {error ? (
-          <div className="text-red-500 text-center">{error}</div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {Array.isArray(movies.data) && movies.data?.length > 0
-              ? movies.data?.map((movie: any) => (
-                  <div
-                    key={movie.id}
-                    className="bg-[#222] rounded-lg overflow-hidden"
-                    onClick={() => handleItemClick(movie.id)}
-                    onKeyDown={(e) => handleKeyDown(e, movie.id)}
-                  >
-                    <Image
-                      src={`https://res.cloudinary.com/dhzisk3o5/image/upload/${movie.profileImage}.jpg`}
-                      alt={movie.title}
-                      width={300}
-                      height={400}
-                      className="w-full h-auto"
-                    />
-                    <div className="p-4">
-                      <h2 className="text-lg font-semibold mb-2">
-                        {movie.title}
-                      </h2>
-                      <p className="text-sm text-gray-400">{movie.id}</p>
-                    </div>
-                  </div>
-                ))
-              : ""}
-          </div>
-        )}
-      </main> */}
       {movies.pagination?.totalPage > 0 ? (
         <footer className="mt-8 p-4 bg-[#fff] text-center">
           <div className="flex justify-center space-x-2 mb-4">
@@ -213,7 +186,6 @@ export default function Home() {
       ) : (
         ""
       )}
-      {/* // </div> */}
     </>
   );
 }

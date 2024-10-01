@@ -14,8 +14,8 @@ export default function AdBanner({ id, height, width }: any) {
   };
   useEffect(() => {
     if (banner.current && !banner.current.firstChild) {
-      const conf = document.createElement("script");
-      const script = document.createElement("script");
+      const conf = window.document.createElement("script");
+      const script = window.document.createElement("script");
       script.type = "text/javascript";
       script.src = `//www.topcreativeformat.com/${id}/invoke.js`;
       conf.innerHTML = `atOptions = ${JSON.stringify(atOptions)}`;

@@ -6,12 +6,14 @@ export default async function getMovies({
   page,
   take,
   searchQuery,
+  tagQuery,
 }: // cursor,
 {
   page: number;
   take: number;
   cursor?: any;
   searchQuery: string;
+  tagQuery: string;
 }) {
   let movies: any;
   let error: string | null = null;
@@ -33,13 +35,16 @@ export default async function getMovies({
           genre: true,
         },
         where: {
-          OR: [
-            {
-              title: { contains: searchQuery, mode: "insensitive" },
-            },
-            {
-              details: { contains: searchQuery, mode: "insensitive" },
-            },
+          AND: [
+            searchQuery
+              ? {
+                  OR: [
+                    { title: { contains: searchQuery, mode: "insensitive" } },
+                    { details: { contains: searchQuery, mode: "insensitive" } },
+                  ],
+                }
+              : {},
+            tagQuery ? { tags: { has: tagQuery } } : {},
           ],
         },
         skip,

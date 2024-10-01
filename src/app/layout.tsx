@@ -17,22 +17,23 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Best Movies Hub",
+  title:
+    "HD Movies | Download | Free | Full Movies | Full HD | Best Movies Hub",
   description: "Best Movies Hub, A free download movies website",
   // icons: {
   //   icon: "/metaLogo.png",
   // },
 
-  // openGraph: {
-  //   images: [
-  //     {
-  //       url: "/images/metalogo.png",
-  //       width: 20,
-  //       height: 20,
-  //       alt: "My custom alt",
-  //     },
-  //   ],
-  // },
+  openGraph: {
+    images: [
+      {
+        url: "/icon.png",
+        width: 87,
+        height: 87,
+        alt: "My custom alt",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({

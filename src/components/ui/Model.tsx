@@ -30,11 +30,11 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
     };
 
     if (isModalOpen) {
-      document.addEventListener("keydown", handleEscape);
+      window.document.addEventListener("keydown", handleEscape);
     }
 
     return () => {
-      document.removeEventListener("keydown", handleEscape);
+      window.document.removeEventListener("keydown", handleEscape);
     };
   }, [isModalOpen, handleClose]);
 
