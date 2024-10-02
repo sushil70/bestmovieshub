@@ -63,7 +63,7 @@ model director{
 
 model newUser {
   id String @id @map("_id")
-  count BigInt @default(1)
+  count Int @default(1)
   createdDateTime DateTime @default(now())
   updatedDateTime DateTime @updatedAt
 }

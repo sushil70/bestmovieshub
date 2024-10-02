@@ -23,13 +23,13 @@ async function updateUser(id: any) {
       },
     });
     console.log("result", result);
-    if (moment().diff(moment(result?.updatedDateTime), "hours") > 1 && result) {
+    if (moment() > moment(result?.updatedDateTime).add(1, "h") && result) {
       const updateResult = await prisma.newUser.update({
         where: {
           id,
         },
         data: {
-          count: result.count++,
+          count: result.count + 1,
         },
       });
       return { success: true, data: updateResult };
