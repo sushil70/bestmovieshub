@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import getMovies from "./actions/getMovies";
 import AdBanner from "@/ads/Banner300160";
 import Link from "next/link";
+import { getOrSetUserUUID } from "./actions/store/getSetNewUser";
 
 export default function Home() {
   // const router = useRouter();
@@ -43,6 +44,10 @@ export default function Home() {
       setError(error);
     })();
   }, [skip, searchQuery, tagQuery]);
+
+  useEffect(() => {
+    getOrSetUserUUID();
+  }, []);
 
   // const handleItemClick = (id: number, title: string) => {
   //   router.push(`/details/${id}/${title.replace(/ /g, "-")}`);
