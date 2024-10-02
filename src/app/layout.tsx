@@ -17,8 +17,9 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Full HD Movies | Download | Best Movies Hub",
-  description: "Best Movies Hub, A free download movies website",
+  title: "Full HD Movies Download | Best Movies Hub | Free Download",
+  description:
+    "Best Movies Hub | Download a wide collection of movies and series for free. Explore the latest releases, classics, and genres, all available for fast, easy downloading. Join now and enjoy free movie downloads!",
   // icons: {
   //   icon: "/metaLogo.png",
   // },

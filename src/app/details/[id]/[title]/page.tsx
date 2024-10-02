@@ -153,12 +153,12 @@ const Detail = () => {
                         >
                           <Image
                             src={`https://res.cloudinary.com/dhzisk3o5/image/upload/${actor.id}.jpg`}
-                            alt={actor.label}
+                            alt={actor.id}
                             width={96}
                             height={96}
                             className="rounded-full mb-2"
                           />
-                          <p className="text-sm font-medium">{actor.label}</p>
+                          <h3 className="text-sm font-medium">{actor.label}</h3>
                           <p className="text-xs text-gray-500">
                             {actor.character}
                           </p>

@@ -12,7 +12,6 @@ import Link from "next/link";
 import { getOrSetUserUUID } from "./actions/store/getSetNewUser";
 
 export default function Home() {
-  // const router = useRouter();
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("s");
   const tagQuery = searchParams.get("t");
@@ -30,17 +29,14 @@ export default function Home() {
         movies: data,
         error,
         pagination,
-        // nextCursor,
       } = await getMovies({
         take: 10,
         page: skip,
-        // cursor: movies.nextCursor || null,
         searchQuery: searchQuery || "",
         tagQuery: tagQuery || "",
       });
       console.log("movies", data, pagination);
       setMovies({ data: data, pagination });
-      // setMovies({ data: data, pagination, nextCursor });
       setError(error);
     })();
   }, [skip, searchQuery, tagQuery]);
@@ -49,50 +45,17 @@ export default function Home() {
     getOrSetUserUUID();
   }, []);
 
-  // const handleItemClick = (id: number, title: string) => {
-  //   router.push(`/details/${id}/${title.replace(/ /g, "-")}`);
-  // };
-
-  // const handleKeyDown = (
-  //   event: React.KeyboardEvent,
-  //   id: number,
-  //   title: string
-  // ) => {
-  //   if (event.key === "Enter" || event.key === " ") {
-  //     event.preventDefault();
-  //     handleItemClick(id, title);
-  //   }
-  // };
-
   return (
     <>
-      {/* // <div className="min-h-screen bg-gray-50">
-      // <header className="bg-white shadow-sm">
-      //   <div className="container mx-auto px-4 py-6 flex flex-col sm:flex-row justify-between items-center">
-      //     <h1 className="text-3xl font-bold text-gray-900 mb-4 sm:mb-0">
-      //       CineVault
-      //     </h1>
-      //     <Input
-      //       type="search"
-      //       placeholder="Search movies..."
-      //       className="max-w-xs"
-      //       value={searchTerm}
-      //       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-      //         setSearchTerm(e.target.value)
-      //       }
-      //     />
-      //   </div>
-      // </header> */}
-
       <main className="  ">
         <div className="h-[100px] max-w-[1536px]  w-full container m-auto px-4 mt-4 bg-slate-300 flex items-center ">
-          <h1>
-            <div className="text-3xl  font-bold  text-gray-900">
-              {searchQuery || tagQuery
-                ? `Search Results for "${searchQuery || tagQuery}"`
-                : "Latest"}
-            </div>
-          </h1>
+          <div className="text-3xl  font-bold  text-gray-900">
+            {searchQuery || tagQuery ? (
+              <h1>Search Results for {searchQuery || tagQuery}</h1>
+            ) : (
+              <h1>Latest </h1>
+            )}
+          </div>
         </div>
         <div className="container mx-auto pt-6 pb-12 px-4 flex justify-evenly">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 w-3/4 max-w-[940px]">
@@ -105,11 +68,7 @@ export default function Home() {
                 )}`}
                 className="cursor-pointer rounded-lg border bg-card text-card-foreground shadow-sm"
               >
-                <Card
-                  className="cursor-pointer overflow-hidden transition-transform hover:scale-105"
-                  // onClick={() => handleItemClick(movie.id, movie.details)}
-                  // onKeyDown={(e) => handleKeyDown(e, movie.id, movie.details)}
-                >
+                <Card className="cursor-pointer overflow-hidden transition-transform hover:scale-105">
                   <div
                     key={movie.id}
                     className="bg-[#222] rounded-lg overflow-hidden"
@@ -133,7 +92,7 @@ export default function Home() {
                           index: number
                         ) => (
                           <Badge variant="outline" key={index}>
-                            {genre.label}
+                            <h4>{genre.label}</h4>
                           </Badge>
                         )
                       )}
@@ -144,7 +103,7 @@ export default function Home() {
                     <div className="flex items-center">
                       <Star className="w-5 h-5 text-yellow-400 mr-1" />
                       <span className="text-gray-700 dark: text-gray-300">
-                        {movie.rating}
+                        <h5>{movie.rating}</h5>
                       </span>
                     </div>
                   </CardContent>
