@@ -1,18 +1,22 @@
+"use client";
 import UserTable from "./Table";
-import { PrismaClient } from "@prisma/client";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
+import { useMoviesTableData } from "../actions/store/globalStore";
+import { getTableMovieList } from "../actions/getMovies";
 
-export default async function Admin() {
-  const prisma = new PrismaClient();
-
-  const movies = await prisma.allmovies.findMany({
-    orderBy: { updatedDate: "desc" },
-  });
+export default function Admin() {
+  const { moviesData, setMoviesData } = useMoviesTableData();
+  useEffect(() => {
+    (async () => {
+      const { movies } = await getTableMovieList();
+      setMoviesData(movies);
+    })();
+  }, []);
 
   return (
     <main>
       <Suspense fallback={<div>Loading...</div>}>
-        <UserTable data={movies} />
+        <UserTable data={moviesData} />
       </Suspense>
     </main>
   );

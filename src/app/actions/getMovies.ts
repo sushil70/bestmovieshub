@@ -2,7 +2,7 @@
 
 import { PrismaClient } from "@prisma/client";
 
-export default async function getMovies({
+export async function getMovies({
   page,
   take,
   searchQuery,
@@ -45,6 +45,7 @@ export default async function getMovies({
                 }
               : {},
             tagQuery ? { tags: { has: tagQuery } } : {},
+            { show: true },
           ],
         },
         skip,
@@ -66,6 +67,7 @@ export default async function getMovies({
                 }
               : {},
             tagQuery ? { tags: { has: tagQuery } } : {},
+            { show: true },
           ],
         },
       }),
@@ -87,4 +89,20 @@ export default async function getMovies({
       totalPage: Math.ceil(total / take),
     },
   };
+}
+
+export async function getTableMovieList() {
+  let movies: any;
+  let error: string | null = null;
+  const prisma = new PrismaClient();
+
+  try {
+    movies = await prisma.allmovies.findMany({
+      orderBy: { createdDate: "desc" },
+    });
+  } catch (e) {
+    error = e instanceof Error ? e.message : "An unexpected error occurred";
+  }
+
+  return { movies, error };
 }

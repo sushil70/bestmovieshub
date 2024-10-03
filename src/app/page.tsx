@@ -6,7 +6,7 @@ import { Star } from "lucide-react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import getMovies from "./actions/getMovies";
+import { getMovies } from "./actions/getMovies";
 import AdBanner from "@/ads/Banner300160";
 import Link from "next/link";
 import { getOrSetUserUUID } from "./actions/store/getSetNewUser";
@@ -49,7 +49,7 @@ export default function Home() {
         <div className="h-[100px] max-w-[1536px]  w-full container m-auto px-4 mt-4 bg-slate-300 flex items-center ">
           <div className="text-3xl  font-bold  text-gray-900">
             {searchQuery || tagQuery ? (
-              <h1>Search Results for {searchQuery || tagQuery}</h1>
+              <h1>Search Results for &quot;{searchQuery || tagQuery}&quot;</h1>
             ) : (
               <h1>Latest </h1>
             )}

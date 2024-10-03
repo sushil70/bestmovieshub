@@ -30,3 +30,20 @@ export async function updateMovie(data: any, id: string) {
     return { success: false, error: "Failed to update movie" };
   }
 }
+
+export async function switchShow(id: string, show: boolean) {
+  try {
+    const result = await prisma.allmovies.update({
+      where: {
+        id,
+      },
+      data: {
+        show,
+      },
+    });
+    return { success: true, data: result };
+  } catch (error) {
+    console.error("Failed to switch show movie:", error);
+    return { success: false, error: "Failed to switch show movie" };
+  }
+}

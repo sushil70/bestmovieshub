@@ -230,6 +230,7 @@ const Detail = () => {
                     key={index}
                     className="flex items-center h-16 w-2/3 justify-center bg-blue-500 hover:bg-blue-600 text-white"
                     href={link.id}
+                    target="_blank"
                   >
                     <h3 className="flex items-center">
                       <Download className="mr-2 h-5 w-5" />{" "}

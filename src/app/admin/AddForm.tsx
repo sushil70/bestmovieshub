@@ -11,6 +11,8 @@ import CustomDatePicker from "@/components/ui/DatePicker";
 import getActors from "../actions/getActors";
 import { getDirector } from "../actions/addDirector";
 import { convertToMinutes } from "@/lib/constant";
+import { getTableMovieList } from "../actions/getMovies";
+import { useMoviesTableData } from "../actions/store/globalStore";
 
 // Define the form schema using Zod
 const formSchema = z.object({
@@ -87,6 +89,8 @@ export default function AddForm({
     { id: string; label: string }[]
   >([]);
 
+  const { setMoviesData } = useMoviesTableData();
+
   const {
     register,
     handleSubmit,
@@ -155,7 +159,8 @@ export default function AddForm({
           ?.replace(/\s+/g, "")
           ?.replace(/\n/g, "")
           ?.replace(/,/g, "")
-          ?.split("#") || [],
+          ?.split("#")
+          .filter((tag: string) => tag !== "") || [],
     };
 
     let result: any = "";
@@ -170,6 +175,8 @@ export default function AddForm({
       setSubmitStatus({ success: true, message: "Movie added successfully!" });
       setInitialState("");
       setIsOpen(false);
+      const { movies } = await getTableMovieList();
+      setMoviesData(movies);
     } else {
       setSubmitStatus({
         success: false,
@@ -287,6 +294,10 @@ export default function AddForm({
             {
               id: "DualAudio[Hindi+English]",
               label: "Dual Audio [Hindi + English]",
+            },
+            {
+              id: "DualAudio[Hindi+Tamil]",
+              label: "Dual Audio [Hindi + Tamil]",
             },
             { id: "hindiDubbed", label: "Hindi Dubbed" },
             { id: "english", label: "English" },

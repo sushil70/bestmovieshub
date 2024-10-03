@@ -10,4 +10,9 @@ const useSearch = create<searchState>()((set) => ({
   setSearch: (value) => set(() => ({ search: value })),
 }));
 
-export default useSearch;
+const useMoviesTableData = create<any>()((set) => ({
+  moviesData: [],
+  setMoviesData: (value: any) => set(() => ({ moviesData: value })),
+}));
+
+export { useSearch, useMoviesTableData };

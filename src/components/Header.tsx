@@ -1,5 +1,5 @@
 "use client";
-import useSearch from "@/app/actions/store/Search";
+import { useSearch } from "@/app/actions/store/globalStore";
 import { Input } from "@/components/ui/SearchInput";
 import Image from "next/image";
 import Link from "next/link";

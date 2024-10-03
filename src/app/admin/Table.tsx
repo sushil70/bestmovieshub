@@ -21,10 +21,15 @@ import AddActorsForm from "./AddActorsForm";
 import { addActors } from "../actions/addActors";
 import { TOCAMELCASE } from "@/lib/constant";
 import { addDirector } from "../actions/addDirector";
+import { Switch } from "@/components/ui/switch";
+import { switchShow } from "../actions/addMovie";
+import { getTableMovieList } from "../actions/getMovies";
+import { useMoviesTableData } from "../actions/store/globalStore";
 
 const UserTable: React.FC<any> = ({ data }) => {
   const router = useRouter();
   const idSearchParams: string | null = useSearchParams().get("id");
+  const { setMoviesData } = useMoviesTableData();
 
   const [checkingAccess, setCheckingAccess] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
@@ -83,10 +88,25 @@ const UserTable: React.FC<any> = ({ data }) => {
     }
   };
 
-  // const filteredMovies = mockMovies.filter(movie =>
-  //   movie.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  //   movie.director.toLowerCase().includes(searchTerm.toLowerCase())
-  // )
+  const switchVisibility = async ({
+    id,
+    show,
+  }: {
+    id: string;
+    show: boolean;
+  }) => {
+    const result = await switchShow(id, show);
+
+    if (result.success) {
+      const { movies } = await getTableMovieList();
+      setMoviesData(movies);
+    } else {
+      // setSubmitStatus({
+      //   success: false,
+      //   message: result.error || "Failed to add movie",
+      // });
+    }
+  };
 
   return (
     <>
@@ -141,6 +161,7 @@ const UserTable: React.FC<any> = ({ data }) => {
                 <TableHead>Genre</TableHead>
                 <TableHead>Language</TableHead>
                 <TableHead>Rating</TableHead>
+                <TableHead>Visible</TableHead>
                 <TableHead>Action</TableHead>
               </TableRow>
             </TableHeader>
@@ -162,6 +183,15 @@ const UserTable: React.FC<any> = ({ data }) => {
                       <Star className="w-4 h-4 text-yellow-400 mr-1" />
                       {movie.rating}
                     </div>
+                  </TableCell>
+                  <TableCell>
+                    <Switch
+                      // defaultChecked={movie.show}
+                      onClick={() => {
+                        switchVisibility({ id: movie.id, show: !movie.show });
+                      }}
+                      checked={movie.show}
+                    />
                   </TableCell>
                   <TableCell>
                     <Button variant="link" size="sm">
