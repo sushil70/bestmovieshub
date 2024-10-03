@@ -30,6 +30,7 @@ const UserTable: React.FC<any> = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenActors, setIsOpenActors] = useState(false);
   const [isOpenDirector, setIsOpenDirector] = useState(false);
+  const [initialState, setInitialState] = useState("");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -45,8 +46,6 @@ const UserTable: React.FC<any> = ({ data }) => {
   }
 
   const handleAddActors = async (data: []) => {
-    console.log("handleAddActors", data);
-
     const formData = data.map((item: any) => ({
       ...item,
       id: TOCAMELCASE(item.id),
@@ -58,7 +57,6 @@ const UserTable: React.FC<any> = ({ data }) => {
       // setSubmitStatus({ success: true, message: "Movie added successfully!" });
       setIsOpenActors(false);
     } else {
-      console.log("Failed to add Actors:", result);
       // setSubmitStatus({
       //   success: false,
       //   message: result.error || "Failed to add movie",
@@ -67,8 +65,6 @@ const UserTable: React.FC<any> = ({ data }) => {
   };
 
   const handleAddDirector = async (data: []) => {
-    console.log("handleAddDirector", data);
-
     const formData = data.map((item: any) => ({
       ...item,
       id: TOCAMELCASE(item.id),
@@ -80,7 +76,6 @@ const UserTable: React.FC<any> = ({ data }) => {
       // setSubmitStatus({ success: true, message: "Movie added successfully!" });
       setIsOpenDirector(false);
     } else {
-      console.log("Failed to add Director:", result);
       // setSubmitStatus({
       //   success: false,
       //   message: result.error || "Failed to add movie",
@@ -172,7 +167,14 @@ const UserTable: React.FC<any> = ({ data }) => {
                     <Button variant="link" size="sm">
                       Details
                     </Button>
-                    <Button variant="default" size="sm">
+                    <Button
+                      variant="default"
+                      size="sm"
+                      onClick={() => {
+                        setIsOpen(true);
+                        setInitialState(movie);
+                      }}
+                    >
                       Edit
                     </Button>
                   </TableCell>
@@ -188,7 +190,11 @@ const UserTable: React.FC<any> = ({ data }) => {
         onClose={() => setIsOpen(false)}
         title="Add Movies"
       >
-        <AddForm setIsOpen={setIsOpen} />
+        <AddForm
+          setIsOpen={setIsOpen}
+          initialState={initialState}
+          setInitialState={setInitialState}
+        />
       </Modal>
 
       <Modal

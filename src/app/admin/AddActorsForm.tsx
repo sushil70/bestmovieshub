@@ -29,7 +29,6 @@ export default function AddActorsForm({ handleAddActors }: any) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(fields);
     handleAddActors(fields);
     // Here you would typically send the data to your backend
   };

@@ -24,7 +24,6 @@ export default function Home() {
 
   useEffect(() => {
     (async () => {
-      console.log("searchQuery", searchQuery, tagQuery);
       const {
         movies: data,
         error,
@@ -35,7 +34,6 @@ export default function Home() {
         searchQuery: searchQuery || "",
         tagQuery: tagQuery || "",
       });
-      console.log("movies", data, pagination);
       setMovies({ data: data, pagination });
       setError(error);
     })();

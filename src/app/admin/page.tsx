@@ -5,7 +5,9 @@ import { Suspense } from "react";
 export default async function Admin() {
   const prisma = new PrismaClient();
 
-  const movies = await prisma.allmovies.findMany();
+  const movies = await prisma.allmovies.findMany({
+    orderBy: { updatedDate: "desc" },
+  });
 
   return (
     <main>

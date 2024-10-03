@@ -10,7 +10,6 @@ export const getOrSetUserUUID = () => {
     localStorage.setItem("userUUID", userUUID || "");
     addUser({ id: userUUID });
   } else {
-    console.log("Returning user: ", userUUID);
     updateUser(userUUID);
   }
 };

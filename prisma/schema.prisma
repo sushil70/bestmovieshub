@@ -49,6 +49,7 @@ model allmovies{
   soundtrack Json[] @default([])
   funFacts String[] @default([])
   languages Json? 
+  show Boolean @default(false)
 }
 
 model actors{

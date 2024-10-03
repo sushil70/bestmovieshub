@@ -5,11 +5,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import FormInput from "@/components/ui/Input";
 import ComboboxForm from "@/components/ui/combobox";
-import { addMovie } from "@/app/actions/addMovie";
+import { addMovie, updateMovie } from "@/app/actions/addMovie";
 import { useEffect, useState } from "react";
 import CustomDatePicker from "@/components/ui/DatePicker";
 import getActors from "../actions/getActors";
 import { getDirector } from "../actions/addDirector";
+import { convertToMinutes } from "@/lib/constant";
 
 // Define the form schema using Zod
 const formSchema = z.object({
@@ -46,10 +47,6 @@ const formSchema = z.object({
     .min(0)
     .optional(),
 
-  downloadLinks: z
-    .array(z.object({ id: z.string(), label: z.string() }))
-    .min(0)
-    .optional(),
   trailerLink: z.string().optional(),
   reviews: z
     .array(
@@ -65,15 +62,31 @@ const formSchema = z.object({
     .min(0)
     .optional(),
   funFacts: z.array(z.string()).min(0).optional(),
+  downloadLinks: z
+    .array(
+      z.object({
+        id: z.string().url("Must be a valid URL"),
+        label: z.string(),
+      })
+    )
+    .optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
 
-export default function AddForm({ setIsOpen }: any) {
+export default function AddForm({
+  setIsOpen,
+  initialState,
+  setInitialState,
+}: any) {
   const [submitStatus, setSubmitStatus] = useState<{
     success: boolean;
     message: string;
   } | null>(null);
+  const [downloadLinks, setDownloadLinks] = useState<
+    { id: string; label: string }[]
+  >([]);
+
   const {
     register,
     handleSubmit,
@@ -83,11 +96,17 @@ export default function AddForm({ setIsOpen }: any) {
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      title: "",
-      type: { id: "movie", label: "Movie" },
-      noOfImages: "8",
-    },
+    defaultValues: initialState
+      ? {
+          ...initialState,
+          runtime: convertToMinutes(initialState.runtime).toString(),
+          tags: initialState.tags.join("#"),
+        }
+      : {
+          title: "",
+          type: { id: "movie", label: "Movie" },
+          noOfImages: "8",
+        },
   });
 
   const [actors, setActors] = useState<any[]>([]);
@@ -112,8 +131,6 @@ export default function AddForm({ setIsOpen }: any) {
   }, []);
 
   const onSubmit = async (data: any) => {
-    console.log("onSubmit", data);
-
     const formData = {
       ...data,
       profileImage: `${data.title}p`,
@@ -133,23 +150,53 @@ export default function AddForm({ setIsOpen }: any) {
           : data.type.id === "series"
           ? `${data.runtime} Episodes`
           : "",
-      tags: data.tags?.split(" ") || [],
+      tags:
+        data.tags
+          ?.replace(/\s+/g, "")
+          ?.replace(/\n/g, "")
+          ?.replace(/,/g, "")
+          ?.split("#") || [],
     };
 
-    console.log("formData", formData);
+    let result: any = "";
 
-    const result = await addMovie(formData);
+    if (initialState) {
+      result = await updateMovie(formData, initialState.id);
+    } else {
+      result = await addMovie(formData);
+    }
 
     if (result.success) {
       setSubmitStatus({ success: true, message: "Movie added successfully!" });
+      setInitialState("");
       setIsOpen(false);
     } else {
-      console.log("Failed to add movie:", result);
       setSubmitStatus({
         success: false,
         message: result.error || "Failed to add movie",
       });
     }
+  };
+
+  const addDownloadLink = () => {
+    setDownloadLinks([...downloadLinks, { id: "", label: "480p" }]);
+  };
+
+  const removeDownloadLink = (index: number) => {
+    const newLinks = [...downloadLinks];
+    newLinks.splice(index, 1);
+    setDownloadLinks(newLinks);
+  };
+
+  const updateDownloadLink = (
+    index: number,
+    field: "id" | "label",
+    value: string
+  ) => {
+    const newLinks = [...downloadLinks];
+    newLinks[index][field] = value;
+    setDownloadLinks(newLinks);
+    setValue("downloadLinks", newLinks);
   };
 
   return (
@@ -158,7 +205,6 @@ export default function AddForm({ setIsOpen }: any) {
         onSubmit={handleSubmit(onSubmit)}
         className="w-full overflow-y-auto  h-[calc(100vh-140px)] mx-auto  bg-white rounded-lg flex  flex-wrap "
       >
-        {/* <h2 className="text-2xl font-bold mb-6 text-center">Add Movie</h2> */}
         <FormInput
           label="Title"
           id="title"
@@ -238,6 +284,10 @@ export default function AddForm({ setIsOpen }: any) {
           className=" w-1/2 mb-4 pr-2"
           options={[
             { id: "hindi", label: "Hindi" },
+            {
+              id: "DualAudio[Hindi+English]",
+              label: "Dual Audio [Hindi + English]",
+            },
             { id: "hindiDubbed", label: "Hindi Dubbed" },
             { id: "english", label: "English" },
             { id: "tamil", label: "Tamil" },
@@ -275,14 +325,6 @@ export default function AddForm({ setIsOpen }: any) {
           error={errors.releaseDate}
           className="col-span-1"
         />
-
-        {/* <FormInput
-          label="Release Date"
-          id="releaseDate"
-          type="text"
-          register={register}
-          className="w-1/2 mb-4 pr-2"
-        /> */}
 
         <FormInput
           label="Description"
@@ -328,22 +370,6 @@ export default function AddForm({ setIsOpen }: any) {
           multiSelect={true}
         />
 
-        {/* <ComboboxForm
-          placeholder="Download Links"
-          onChange={(e) => {
-            setValue("downloadLinks", e as any);
-          }}
-          className=" w-1/2 mb-4 pr-2"
-          options={[
-            { label: "amir", id: "Amir" },
-            { label: "salman", id: "Salman" },
-            { label: "john", id: "John" },
-            { label: "srk", id: "Shahrukh Khan" },
-          ]}
-          initialSelectedOption={getValues("downloadLinks") || []}
-          multiSelect={true}
-        /> */}
-
         <FormInput
           label="Trailer Link"
           id="trailerLink"
@@ -367,6 +393,50 @@ export default function AddForm({ setIsOpen }: any) {
           register={register}
           className="w-1/2 mb-4 pr-2"
         />
+
+        <div className="w-full mb-4">
+          <h3 className="text-lg font-semibold mb-2">Download Links</h3>
+          {downloadLinks.map((link, index) => (
+            <div key={index} className="flex items-center mb-2">
+              <input
+                type="url"
+                placeholder="Download URL"
+                value={link.id}
+                onChange={(e) =>
+                  updateDownloadLink(index, "id", e.target.value)
+                }
+                className="flex-grow mr-2 p-2 border rounded"
+              />
+              <select
+                value={link.label}
+                onChange={(e) =>
+                  updateDownloadLink(index, "label", e.target.value)
+                }
+                className="mr-2 p-2 border rounded"
+              >
+                <option value="480p">480p</option>
+                <option value="720p">720p</option>
+                <option value="1080p">1080p</option>
+                <option value="2K">2K</option>
+                <option value="4K">4K</option>
+              </select>
+              <button
+                type="button"
+                onClick={() => removeDownloadLink(index)}
+                className="p-2 bg-red-500 text-white rounded"
+              >
+                Remove
+              </button>
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={addDownloadLink}
+            className="mt-2 p-2 bg-green-500 text-white rounded"
+          >
+            Add Download Link
+          </button>
+        </div>
 
         <button
           type="submit"

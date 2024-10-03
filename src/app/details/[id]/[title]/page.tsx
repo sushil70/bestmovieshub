@@ -39,8 +39,6 @@ const Detail = () => {
     })(id);
   }, [id]);
 
-  console.log(movieDetails);
-
   return (
     <>
       <div className="min-h-screen bg-gray-100">
@@ -94,51 +92,50 @@ const Detail = () => {
                     {movieDetails.title}
                   </h2>
                   <p className="text-lg mb-4">{movieDetails.description}</p>
-                  <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div>
-                      <p className="flex items-center flex-wrap">
-                        <Film className="mr-2 h-4 w-4" />{" "}
-                        <strong>Genre:</strong>{" "}
-                        {movieDetails.genre
-                          ?.map(
-                            (item: { label: string; id: string }) => item.label
-                          )
-                          .join(", ")}
-                      </p>
-                      <p className="flex items-center flex-wrap">
-                        <Camera className="mr-2 h-4 w-4" />{" "}
-                        <strong>Director: </strong>{" "}
-                        {movieDetails.director
-                          ?.map(
-                            (item: { label: string; id: string }) => item.label
-                          )
-                          .join(", ")}
-                      </p>
-                      <p className="flex items-center flex-wrap">
-                        <Globe className="mr-2 h-4 w-4" />{" "}
-                        <strong>Language: </strong>{" "}
-                        {movieDetails.languages?.label}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="flex items-center flex-wrap">
-                        <Clock className="mr-2 h-4 w-4" />{" "}
-                        <strong>Runtime:</strong> {movieDetails.runtime}
-                      </p>
-                      <p className="flex items-center flex-wrap">
+                  <div className="grid grid-cols-1 gap-4 mb-4">
+                    {/* <div> */}
+                    <p className="flex items-center flex-wrap">
+                      <Film className="mr-2 h-4 w-4" /> <strong>Genre:</strong>{" "}
+                      {movieDetails.genre
+                        ?.map(
+                          (item: { label: string; id: string }) => item.label
+                        )
+                        .join(", ")}
+                    </p>
+                    <p className="flex items-center flex-wrap">
+                      <Camera className="mr-2 h-4 w-4" />{" "}
+                      <strong>Director: </strong>{" "}
+                      {movieDetails.director
+                        ?.map(
+                          (item: { label: string; id: string }) => item.label
+                        )
+                        .join(", ")}
+                    </p>
+                    <p className="flex items-center flex-wrap">
+                      <Globe className="mr-2 h-4 w-4" />{" "}
+                      <strong>Language: </strong>{" "}
+                      {movieDetails.languages?.label}
+                    </p>
+                    {/* </div>
+                    <div> */}
+                    <p className="flex items-center flex-wrap">
+                      <Clock className="mr-2 h-4 w-4" />{" "}
+                      <strong>Runtime:</strong> {movieDetails.runtime}
+                    </p>
+                    {/* <p className="flex items-center flex-wrap">
                         <Info className="mr-2 h-4 w-4" />{" "}
                         <strong>Age Rating:</strong> {movieDetails.ageRating}
-                      </p>
-                      <p className="flex items-center flex-wrap">
-                        <Download className="mr-2 h-4 w-4" />{" "}
-                        <strong>Quality:</strong>{" "}
-                        {movieDetails.downloadLinks
-                          ?.map(
-                            (item: { label: string; id: string }) => item.label
-                          )
-                          .join(", ")}
-                      </p>
-                    </div>
+                      </p> */}
+                    <p className="flex items-center flex-wrap">
+                      <Download className="mr-2 h-4 w-4" />{" "}
+                      <strong>Quality:</strong>{" "}
+                      {movieDetails.downloadLinks
+                        ?.map(
+                          (item: { label: string; id: string }) => item.label
+                        )
+                        .join(", ")}
+                    </p>
+                    {/* </div> */}
                   </div>
                   <h2 className="text-xl font-semibold mb-2">Cast</h2>
                   <div className="flex overflow-x-auto gap-4 pb-4">
@@ -227,16 +224,18 @@ const Detail = () => {
                 Download {movieDetails.details}
                 <br />: Download Links :
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="flex flex-wrap items-center justify-center mb-8 gap-4">
                 {movieDetails.downloadLinks?.map((link: any, index: number) => (
-                  <Button
+                  <Link
                     key={index}
-                    className="flex items-center justify-center"
-                    size="lg"
+                    className="flex items-center h-16 w-2/3 justify-center bg-blue-500 hover:bg-blue-600 text-white"
+                    href={link.id}
                   >
-                    <Download className="mr-2 h-5 w-5" /> Download{" "}
-                    {link.quality}
-                  </Button>
+                    <h3 className="flex items-center">
+                      <Download className="mr-2 h-5 w-5" />{" "}
+                      <h4 className="text-2xl"> Download {link.label} Link</h4>
+                    </h3>
+                  </Link>
                 ))}
               </div>
             </div>
