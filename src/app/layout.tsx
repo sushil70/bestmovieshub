@@ -83,11 +83,11 @@ export default function RootLayout({
           src="//pl24559249.cpmrevenuegate.com/5a/0f/37/5a0f371c3d1a1a74cd3980b00c921fd7.js"
           async
         ></script>
-        {/* <script
+        <script
+          type="text/javascript"
+          src="//pl24605096.cpmrevenuegate.com/f9/69/77/f96977f62afc5113015773921ca3cb42.js"
           async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1763907200549927"
-          crossOrigin="anonymous"
-        ></script> */}
+        ></script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

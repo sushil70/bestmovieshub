@@ -1,5 +1,4 @@
 "use client";
-import AdBanner from "@/ads/Banner300160";
 import { useSearch } from "@/app/actions/store/globalStore";
 import { Input } from "@/components/ui/SearchInput";
 import Image from "next/image";
@@ -58,13 +57,13 @@ export default function Header() {
           />
         </div>
       </div>
-      <div>
+      {/* <div>
         <AdBanner
           height={90}
           width={728}
           id="3dfc2513e4419023095db69838be11e5"
         />
-      </div>
+      </div> */}
     </header>
   );
 }
