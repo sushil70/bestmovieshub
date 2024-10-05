@@ -103,7 +103,10 @@ export default function AddForm({
     defaultValues: initialState
       ? {
           ...initialState,
-          runtime: convertToMinutes(initialState.runtime).toString(),
+          runtime:
+            initialState?.type?.id === "series"
+              ? parseInt(initialState?.runtime)
+              : convertToMinutes(initialState.runtime).toString(),
           tags: initialState.tags.join("#"),
         }
       : {
