@@ -55,6 +55,13 @@ export default function Home() {
             )}
           </div>
         </div>
+        <div>
+          <AdBanner
+            height={90}
+            width={728}
+            id="3dfc2513e4419023095db69838be11e5"
+          />
+        </div>
         <div className="container mx-auto pt-6 pb-12 px-4 flex justify-evenly">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 w-3/4 max-w-[940px]">
             {movies.data?.map((movie: any, index: number) => (
@@ -159,6 +166,13 @@ export default function Home() {
       ) : (
         ""
       )}
+      <div>
+        <AdBanner
+          height={90}
+          width={728}
+          id="3dfc2513e4419023095db69838be11e5"
+        />
+      </div>
     </>
   );
 }
