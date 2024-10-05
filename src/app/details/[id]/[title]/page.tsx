@@ -22,6 +22,7 @@ import Link from "next/link";
 
 const Detail = () => {
   const [movieDetails, setMovieDetails] = useState<any | null>({});
+  const [itemClicked, setItemClicked] = useState<any | null>({});
 
   const params = useParams();
   const id: any = params.id;
@@ -176,14 +177,19 @@ const Detail = () => {
                 {movieDetails.images?.length > 0 &&
                   movieDetails.images?.map((image: string, index: number) => (
                     <div className="md:w-1/2 sm:w-full p-1" key={index}>
-                      <Image
-                        src={`https://res.cloudinary.com/dhzisk3o5/image/upload/${image}.jpg`}
-                        alt={image}
-                        width={1000}
-                        height={100}
-                        objectFit="contain"
-                        className="rounded-lg"
-                      />
+                      <a
+                        href="https://www.cpmrevenuegate.com/hfr45c7hz?key=341fd60e70423cdb74b370279edebb7f"
+                        target="_blank"
+                      >
+                        <Image
+                          src={`https://res.cloudinary.com/dhzisk3o5/image/upload/${image}.jpg`}
+                          alt={image}
+                          width={1000}
+                          height={100}
+                          objectFit="contain"
+                          className="rounded-lg"
+                        />
+                      </a>
                     </div>
                   ))}
               </div>
@@ -232,10 +238,10 @@ const Detail = () => {
                     href={link.id}
                     target="_blank"
                   >
-                    <h3 className="flex items-center">
-                      <Download className="mr-2 h-5 w-5" />{" "}
-                      <h4 className="text-2xl"> Download {link.label} Link</h4>
-                    </h3>
+                    {/* <h3 className="flex items-center"> */}
+                    <Download className="mr-2 h-5 w-5" />{" "}
+                    <h3 className="text-2xl"> Download {link.label} Link</h3>
+                    {/* </h3> */}
                   </Link>
                 ))}
               </div>
@@ -438,14 +444,25 @@ const Detail = () => {
               <div className="bg-white rounded-lg shadow-lg p-6">
                 <h2 className="text-2xl font-semibold mb-4">Tags</h2>
                 <div className="flex flex-wrap gap-2">
-                  {movieDetails.tags?.map((tag: string, index: number) => (
-                    <Link
-                      key={index}
-                      href={`/?t=${encodeURIComponent(tag)}`}
-                      className="bg-gray-200 px-3 py-1 rounded-full text-sm cursor-pointer"
+                  {movieDetails.tags?.map((tag: string) => (
+                    <div
+                      key={`${tag}-${itemClicked[tag]}`}
+                      onClick={() =>
+                        setItemClicked({ ...itemClicked, [tag]: true })
+                      }
                     >
-                      #{tag}
-                    </Link>
+                      <Link
+                        href={
+                          itemClicked[tag]
+                            ? `/?t=${encodeURIComponent(tag)}`
+                            : "https://www.cpmrevenuegate.com/hfr45c7hz?key=341fd60e70423cdb74b370279edebb7f"
+                        }
+                        className="bg-gray-200 px-3 py-1 rounded-full text-sm cursor-pointer"
+                        target={itemClicked[tag] ? "_self" : "_blank"}
+                      >
+                        #{tag}
+                      </Link>
+                    </div>
                   ))}
                 </div>
               </div>
