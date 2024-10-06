@@ -237,6 +237,18 @@ const Detail = () => {
                     className="flex items-center h-16 w-2/3 justify-center bg-blue-500 hover:bg-blue-600 text-white"
                     href={link.id}
                     target="_blank"
+                    onClick={(e) => {
+                      e.preventDefault(); // Prevents default anchor behavior
+
+                      // Open the second link in a new tab
+                      window.open(link.id, "_blank");
+
+                      // Add a slight delay before navigating to the first link in the same tab
+                      setTimeout(() => {
+                        window.location.href =
+                          "https://www.cpmrevenuegate.com/hfr45c7hz?key=341fd60e70423cdb74b370279edebb7f";
+                      }, 500); // 500ms delay
+                    }}
                   >
                     {/* <h3 className="flex items-center"> */}
                     <Download className="mr-2 h-5 w-5" />{" "}
