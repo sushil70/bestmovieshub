@@ -27,7 +27,7 @@ export default function AdBanner({ id, height, width }: any) {
 
   return (
     <>
-      <div className="w-[160px]  bg-slate-800" ref={banner}></div>
+      <div ref={banner}></div>
     </>
   );
 }

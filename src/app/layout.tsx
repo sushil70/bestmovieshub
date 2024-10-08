@@ -78,16 +78,18 @@ export default function RootLayout({
           name="google-site-verification"
           content="eWc-4KqTpRdjZv1i12XPSqDM3YDBe9c82vSwEYXL8nE"
         />
+        {/* popover ads */}
         <script
           type="text/javascript"
           src="//pl24559249.cpmrevenuegate.com/5a/0f/37/5a0f371c3d1a1a74cd3980b00c921fd7.js"
           async
         ></script>
-        {/* <script
+        {/* social ads */}
+        <script
           type="text/javascript"
           src="//pl24605096.cpmrevenuegate.com/f9/69/77/f96977f62afc5113015773921ca3cb42.js"
           async
-        ></script> */}
+        ></script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

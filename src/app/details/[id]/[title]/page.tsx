@@ -19,6 +19,7 @@ import moment from "moment";
 import YoutubePlayer from "@/components/YoutubePlayer";
 import AdBanner from "@/ads/Banner300160";
 import Link from "next/link";
+import AdsteraNativeBanner from "@/ads/AdsteraNativeBanner";
 
 const Detail = () => {
   const [movieDetails, setMovieDetails] = useState<any | null>({});
@@ -300,6 +301,22 @@ const Detail = () => {
               )}
             </div>
 
+            <div className=" p-6 mt-8">
+              {/* Native Banner ads */}
+              {/* <script
+                async
+                data-cfasync="false"
+                src="//pl24631489.cpmrevenuegate.com/aafe4c6da3fa9a97141b4fd5306c9cf6/invoke.js"
+              ></script>
+              <div id="container-aafe4c6da3fa9a97141b4fd5306c9cf6"></div> */}
+              <AdsteraNativeBanner
+                atOptions={{
+                  key: "aafe4c6da3fa9a97141b4fd5306c9cf6",
+                  format: "banner",
+                }}
+              />
+            </div>
+
             <div className="flex flex-wrap gap-8 mt-8">
               <div
                 className={`bg-white rounded-lg shadow-lg p-6 md:w-[calc(${
@@ -481,11 +498,20 @@ const Detail = () => {
             </div>
           </div>
           <div className="w-[200px] min-w-[180px]">
-            <AdBanner
-              height={600}
-              width={160}
-              id="66e9e17ceba1bcaadbf610fdca51e477"
-            />
+            <div className="h-[320px] w-[160px]">
+              <AdBanner
+                height={300}
+                width={160}
+                id="8858a57973b8ec41f6cf2680f8148d23"
+              />
+            </div>
+            <div className="h-[620px]">
+              <AdBanner
+                height={600}
+                width={160}
+                id="66e9e17ceba1bcaadbf610fdca51e477"
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -10,6 +10,7 @@ import { getMovies } from "./actions/getMovies";
 import AdBanner from "@/ads/Banner300160";
 import Link from "next/link";
 import { getOrSetUserUUID } from "./actions/store/getSetNewUser";
+import AdsteraNativeBanner from "@/ads/AdsteraNativeBanner";
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -55,13 +56,13 @@ export default function Home() {
             )}
           </div>
         </div>
-        {/* <div>
+        <div className="w-full flex justify-center">
           <AdBanner
             height={90}
             width={728}
             id="3dfc2513e4419023095db69838be11e5"
           />
-        </div> */}
+        </div>
         <div className="container mx-auto pt-6 pb-12 px-4 flex justify-evenly">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 w-3/4 max-w-[940px]">
             {movies.data?.map((movie: any, index: number) => (
@@ -119,21 +120,38 @@ export default function Home() {
           <div className="flex flex-wrap mt-8 w-[180px] ">
             <div>
               <AdBanner
+                height={300}
+                width={160}
+                id="8858a57973b8ec41f6cf2680f8148d23"
+              />
+            </div>
+            <div>
+              <AdBanner
                 height={600}
                 width={160}
                 id="66e9e17ceba1bcaadbf610fdca51e477"
               />
             </div>
-            {/* <div>
-              <AdBanner
-                height={300}
-                width={160}
-                id="8858a57973b8ec41f6cf2680f8148d23"
-              />
-            </div> */}
           </div>
         </div>
       </main>
+
+      {/* Native Banner ads */}
+      <div className="mb-4 m-auto w-2/3">
+        {/* <script
+          async
+          data-cfasync="false"
+          src="//pl24631489.cpmrevenuegate.com/aafe4c6da3fa9a97141b4fd5306c9cf6/invoke.js"
+        ></script>
+        <div id="container-aafe4c6da3fa9a97141b4fd5306c9cf6"></div> */}
+        <AdsteraNativeBanner
+          atOptions={{
+            key: "aafe4c6da3fa9a97141b4fd5306c9cf6",
+            format: "banner",
+          }}
+        />
+      </div>
+
       {movies.pagination?.totalPage > 0 ? (
         <footer className="mt-8 p-4 bg-[#fff] text-center">
           <div className="flex justify-center space-x-2 mb-4">

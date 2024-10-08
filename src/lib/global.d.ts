@@ -52,6 +52,7 @@ declare global {
 
   interface Global {
     prisma: PrismaClient | undefined;
+    atOptions: any;
   }
 }
 
