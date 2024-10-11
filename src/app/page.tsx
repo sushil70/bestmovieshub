@@ -60,7 +60,7 @@ export default function Home() {
           <AdBanner
             height={90}
             width={728}
-            id="3dfc2513e4419023095db69838be11e5"
+            id="07f82125a43265bd45a0176296ff8d37"
           />
         </div>
         <div className="container mx-auto pt-6 pb-12 px-4 flex justify-evenly">
@@ -122,14 +122,14 @@ export default function Home() {
               <AdBanner
                 height={300}
                 width={160}
-                id="8858a57973b8ec41f6cf2680f8148d23"
+                id="3ca92c4e9c2b17fedb8c0c2e44c9597c"
               />
             </div>
             <div>
               <AdBanner
                 height={600}
                 width={160}
-                id="66e9e17ceba1bcaadbf610fdca51e477"
+                id="7c77e4d81a893f77a847797536567228"
               />
             </div>
           </div>
@@ -138,15 +138,9 @@ export default function Home() {
 
       {/* Native Banner ads */}
       <div className="mb-4 m-auto w-2/3">
-        {/* <script
-          async
-          data-cfasync="false"
-          src="//pl24631489.cpmrevenuegate.com/aafe4c6da3fa9a97141b4fd5306c9cf6/invoke.js"
-        ></script>
-        <div id="container-aafe4c6da3fa9a97141b4fd5306c9cf6"></div> */}
         <AdsteraNativeBanner
           atOptions={{
-            key: "aafe4c6da3fa9a97141b4fd5306c9cf6",
+            key: "8510d78b791c24bef6fb6cbc0298424a",
             format: "banner",
           }}
         />

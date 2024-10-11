@@ -81,13 +81,13 @@ export default function RootLayout({
         {/* popover ads */}
         <script
           type="text/javascript"
-          src="//pl24559249.cpmrevenuegate.com/5a/0f/37/5a0f371c3d1a1a74cd3980b00c921fd7.js"
+          src="//pl24666840.cpmrevenuegate.com/83/2d/ff/832dffd4b04a3a639fbe4b2c7e762963.js"
           async
         ></script>
         {/* social ads */}
         <script
           type="text/javascript"
-          src="//pl24605096.cpmrevenuegate.com/f9/69/77/f96977f62afc5113015773921ca3cb42.js"
+          src="//pl24666986.cpmrevenuegate.com/37/c3/5b/37c35b3285ba4c29ad66bf99b68c9fc4.js"
           async
         ></script>
       </head>

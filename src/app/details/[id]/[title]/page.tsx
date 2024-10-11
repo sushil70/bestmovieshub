@@ -179,7 +179,7 @@ const Detail = () => {
                   movieDetails.images?.map((image: string, index: number) => (
                     <div className="md:w-1/2 sm:w-full p-1" key={index}>
                       <a
-                        href="https://www.cpmrevenuegate.com/hfr45c7hz?key=341fd60e70423cdb74b370279edebb7f"
+                        href="https://www.cpmrevenuegate.com/vwrnu7j3i?key=88b640274ca08379c1400d8b92be5d92"
                         target="_blank"
                       >
                         <Image
@@ -247,7 +247,7 @@ const Detail = () => {
                       // Add a slight delay before navigating to the first link in the same tab
                       setTimeout(() => {
                         window.location.href =
-                          "https://www.cpmrevenuegate.com/hfr45c7hz?key=341fd60e70423cdb74b370279edebb7f";
+                          "https://www.cpmrevenuegate.com/vwrnu7j3i?key=88b640274ca08379c1400d8b92be5d92";
                       }, 500); // 500ms delay
                     }}
                   >
@@ -303,15 +303,9 @@ const Detail = () => {
 
             <div className=" p-6 mt-8">
               {/* Native Banner ads */}
-              {/* <script
-                async
-                data-cfasync="false"
-                src="//pl24631489.cpmrevenuegate.com/aafe4c6da3fa9a97141b4fd5306c9cf6/invoke.js"
-              ></script>
-              <div id="container-aafe4c6da3fa9a97141b4fd5306c9cf6"></div> */}
               <AdsteraNativeBanner
                 atOptions={{
-                  key: "aafe4c6da3fa9a97141b4fd5306c9cf6",
+                  key: "8510d78b791c24bef6fb6cbc0298424a",
                   format: "banner",
                 }}
               />
@@ -484,7 +478,7 @@ const Detail = () => {
                         href={
                           itemClicked[tag]
                             ? `/?t=${encodeURIComponent(tag)}`
-                            : "https://www.cpmrevenuegate.com/hfr45c7hz?key=341fd60e70423cdb74b370279edebb7f"
+                            : "https://www.cpmrevenuegate.com/vwrnu7j3i?key=88b640274ca08379c1400d8b92be5d92"
                         }
                         className="bg-gray-200 px-3 py-1 rounded-full text-sm cursor-pointer"
                         target={itemClicked[tag] ? "_self" : "_blank"}
@@ -502,14 +496,14 @@ const Detail = () => {
               <AdBanner
                 height={300}
                 width={160}
-                id="8858a57973b8ec41f6cf2680f8148d23"
+                id="3ca92c4e9c2b17fedb8c0c2e44c9597c"
               />
             </div>
             <div className="h-[620px]">
               <AdBanner
                 height={600}
                 width={160}
-                id="66e9e17ceba1bcaadbf610fdca51e477"
+                id="7c77e4d81a893f77a847797536567228"
               />
             </div>
           </div>
