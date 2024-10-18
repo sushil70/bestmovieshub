@@ -145,7 +145,10 @@ const UserTable: React.FC<any> = ({ data }) => {
               <Button
                 variant="default"
                 className="mb-8 w-fit flex mr-8 "
-                onClick={() => setIsOpen(true)}
+                onClick={() => {
+                  setIsOpen(true);
+                  setInitialState("");
+                }}
               >
                 Add Movie
               </Button>

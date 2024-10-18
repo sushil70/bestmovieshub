@@ -87,7 +87,7 @@ export default function AddForm({
   } | null>(null);
   const [downloadLinks, setDownloadLinks] = useState<
     { id: string; label: string }[]
-  >([]);
+  >(initialState?.downloadLinks || []);
 
   const { setMoviesData } = useMoviesTableData();
 
@@ -260,6 +260,7 @@ export default function AddForm({
           }}
           className=" w-1/2 mb-4 pr-2"
           options={[
+            { id: "18+", label: "18+" },
             { id: "action", label: "Action" },
             { id: "adventure", label: "Adventure" },
             { id: "comedy", label: "Comedy" },

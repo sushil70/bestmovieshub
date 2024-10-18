@@ -18,7 +18,7 @@ interface ComboboxFormProps {
   multiSelect?: boolean;
 }
 
-export default function ComboboxForm({
+export default function Component({
   options,
   placeholder = "Select an option",
   onChange,
@@ -42,8 +42,23 @@ export default function ComboboxForm({
         );
 
   const handleChange = (newSelected: Option | Option[]) => {
-    setSelected(newSelected);
-    onChange(newSelected);
+    if (multiSelect) {
+      const updatedSelected = Array.isArray(selected) ? [...selected] : [];
+      if (Array.isArray(newSelected)) {
+        newSelected.forEach((option) => {
+          if (!updatedSelected.some((item) => item.id === option.id)) {
+            updatedSelected.push(option);
+          }
+        });
+      } else if (!updatedSelected.some((item) => item.id === newSelected.id)) {
+        updatedSelected.push(newSelected);
+      }
+      setSelected(updatedSelected);
+      onChange(updatedSelected);
+    } else {
+      setSelected(newSelected);
+      onChange(newSelected);
+    }
   };
 
   const removeOption = (optionToRemove: Option) => {
@@ -57,13 +72,15 @@ export default function ComboboxForm({
   };
 
   return (
-    <div className={`${className}  `}>
+    <div className={`${className}`}>
       <Combobox value={selected} onChange={handleChange} multiple={multiSelect}>
         <div className="relative mt-1">
           <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-primary sm:text-sm">
-            {multiSelect && Array.isArray(selected) && selected.length > 0 ? (
-              <div className="flex flex-wrap gap-1 p-1">
-                {selected.map((option) => (
+            <div className="flex flex-wrap gap-1 p-1">
+              {multiSelect &&
+                Array.isArray(selected) &&
+                selected.length > 0 &&
+                selected.map((option) => (
                   <span
                     key={option.id}
                     className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary text-primary-foreground"
@@ -81,19 +98,15 @@ export default function ComboboxForm({
                     </button>
                   </span>
                 ))}
-              </div>
-            ) : (
               <Combobox.Input
                 className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
                 displayValue={(option: Option | Option[] | null) =>
-                  Array.isArray(option)
-                    ? option.map((o) => o.label).join(", ")
-                    : option?.label ?? ""
+                  Array.isArray(option) ? query : option?.label ?? ""
                 }
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder={placeholder}
               />
-            )}
+            </div>
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
               <ChevronsUpDown
                 className="h-5 w-5 text-gray-400"
