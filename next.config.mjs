@@ -7,6 +7,19 @@ const nextConfig = {
     REACT_APP_ADMIN_ID: "passwordToAdminPageWhereFixedManCanGo",
     SITE_URL: "https://www.bestmovieshub.fun",
   },
+  async headers() {
+    return [
+      {
+        source: "/(robots.txt|sitemap.xml)",
+        headers: [
+          {
+            key: "Content-Type",
+            value: "application/xml",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
