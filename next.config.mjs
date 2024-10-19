@@ -5,6 +5,7 @@ const nextConfig = {
   },
   env: {
     REACT_APP_ADMIN_ID: "passwordToAdminPageWhereFixedManCanGo",
+    SITE_URL: "https://www.bestmovieshub.fun",
   },
 };
 

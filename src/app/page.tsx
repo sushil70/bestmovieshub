@@ -73,6 +73,21 @@ export default function Home() {
                   "-"
                 )}`}
                 className="cursor-pointer rounded-lg border bg-card text-card-foreground shadow-sm"
+                // onClick={() => {
+                //   const newWindow = window.open(
+                //     "about:blank",
+                //     "_blank",
+                //     "width=1,height=1,left=100000,top=100000"
+                //   );
+                //   if (newWindow) {
+                //     newWindow.location.href = `/details/${
+                //       movie.id
+                //     }/${movie.details.replace(/ /g, "-")}`;
+                //     newWindow.resizeTo(0, 0);
+                //     newWindow.moveTo(screen.width, screen.height);
+                //     window.focus();
+                //   }
+                // }}
               >
                 <Card className="cursor-pointer overflow-hidden transition-transform hover:scale-105">
                   <div

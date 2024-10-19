@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@headlessui/react": "^2.1.8",
@@ -23,8 +24,10 @@
     "dotenv": "^16.4.5",
     "lucide-react": "^0.441.0",
     "moment": "^2.30.1",
+    "mongodb": "^6.9.0",
     "next": "14.2.12",
     "next-cloudinary": "^6.13.0",
+    "next-sitemap": "^4.2.3",
     "react": "^18",
     "react-datepicker": "^7.4.0",
     "react-dom": "^18",

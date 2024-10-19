@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.bestmovieshub.fun
+
+# Sitemaps
+Sitemap: https://www.bestmovieshub.fun/sitemap.xml
