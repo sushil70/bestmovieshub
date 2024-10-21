@@ -27,6 +27,10 @@ export default function Header() {
         <Link
           href="/"
           className="text-3xl font-bold text-gray-900 mb-4 sm:mb-0"
+          onClick={(e) => {
+            e.preventDefault();
+            location.href = "/";
+          }}
         >
           <Image
             src="/images/logo.png"

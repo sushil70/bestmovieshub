@@ -23,7 +23,6 @@ import AdsteraNativeBanner from "@/ads/AdsteraNativeBanner";
 
 const Detail = () => {
   const [movieDetails, setMovieDetails] = useState<any | null>({});
-  const [itemClicked, setItemClicked] = useState<any | null>({});
 
   const params = useParams();
   const id: any = params.id;
@@ -242,12 +241,20 @@ const Detail = () => {
                       e.preventDefault(); // Prevents default anchor behavior
 
                       // Open the second link in a new tab
-                      window.open(link.id, "_blank");
-
+                      // window.open(link.id, "_blank");
+                      const newWindow = window.open(
+                        "https://www.cpmrevenuegate.com/vwrnu7j3i?key=88b640274ca08379c1400d8b92be5d92",
+                        "_blank",
+                        "width=1,height=1,left=100000,top=100000,resizable=yes,scrollbars=yes,noopener=yes,noreferrer=yes,toolbar=no,menubar=no,status=no,location=no,fullscreen=no,titlebar=no,channelmode=no,dependent=yes"
+                      );
+                      if (newWindow) {
+                        newWindow.resizeTo(0, 0);
+                        newWindow.moveTo(screen.width, screen.height);
+                        window.focus();
+                      }
                       // Add a slight delay before navigating to the first link in the same tab
                       setTimeout(() => {
-                        window.location.href =
-                          "https://www.cpmrevenuegate.com/vwrnu7j3i?key=88b640274ca08379c1400d8b92be5d92";
+                        window.location.href = link.id;
                       }, 500); // 500ms delay
                     }}
                   >
@@ -467,21 +474,33 @@ const Detail = () => {
               <div className="bg-white rounded-lg shadow-lg p-6">
                 <h2 className="text-2xl font-semibold mb-4">Tags</h2>
                 <div className="flex flex-wrap gap-2">
-                  {movieDetails.tags?.map((tag: string) => (
-                    <div
-                      key={`${tag}-${itemClicked[tag]}`}
-                      onClick={() =>
-                        setItemClicked({ ...itemClicked, [tag]: true })
-                      }
-                    >
+                  {movieDetails.tags?.map((tag: string, index: number) => (
+                    <div key={index}>
                       <Link
-                        href={
-                          itemClicked[tag]
-                            ? `/?t=${encodeURIComponent(tag)}`
-                            : "https://www.cpmrevenuegate.com/vwrnu7j3i?key=88b640274ca08379c1400d8b92be5d92"
-                        }
+                        href={`/?t=${encodeURIComponent(tag)}`}
                         className="bg-gray-200 px-3 py-1 rounded-full text-sm cursor-pointer"
-                        target={itemClicked[tag] ? "_self" : "_blank"}
+                        onClick={(e) => {
+                          e.preventDefault(); // Prevents default anchor behavior
+
+                          // Open the second link in a new tab
+                          // window.open(link.id, "_blank");
+                          const newWindow = window.open(
+                            "https://www.cpmrevenuegate.com/vwrnu7j3i?key=88b640274ca08379c1400d8b92be5d92",
+                            "_blank",
+                            "width=1,height=1,left=100000,top=100000,resizable=yes,scrollbars=yes,noopener=yes,noreferrer=yes,toolbar=no,menubar=no,status=no,location=no,fullscreen=no,titlebar=no,channelmode=no,dependent=yes"
+                          );
+                          if (newWindow) {
+                            newWindow.resizeTo(0, 0);
+                            newWindow.moveTo(screen.width, screen.height);
+                            window.focus();
+                          }
+                          // Add a slight delay before navigating to the first link in the same tab
+                          setTimeout(() => {
+                            window.location.href = `/?t=${encodeURIComponent(
+                              tag
+                            )}`;
+                          }, 0); // 500ms delay
+                        }}
                       >
                         #{tag}
                       </Link>
