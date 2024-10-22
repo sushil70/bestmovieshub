@@ -68,3 +68,10 @@ model newUser {
   createdDateTime DateTime @default(now())
   updatedDateTime DateTime @updatedAt
 }
+
+model requests{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String
+  requestData String
+  createdDateTime DateTime @default(now())
+}
