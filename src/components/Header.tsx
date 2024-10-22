@@ -49,20 +49,20 @@ export default function Header() {
               className="rounded-md"
             />
           </Link>
-          <div className="flex space-x-4">
+          <div className="flex flex-wrap  sm:flex-nowrap justify-center">
             <Button
               variant="outline"
               onClick={() => {
                 setShowRequestPopup(true);
               }}
-              className="w-60 font-medium mr-6 border-blue-950 hover:bg-slate-100 hover:text-blue-500 hover:border-blue-500"
+              className="w-60 font-medium mx-3 border-blue-950 hover:bg-slate-100 hover:text-blue-500 hover:border-blue-500"
             >
               Request Movies or Suggest
             </Button>
 
             <Link
               href="/about"
-              className="cursor-pointer flex items-center mr-6 hover:text-blue-500 border-b-2 border-blue-500"
+              className="cursor-pointer flex items-center mx-3 hover:text-blue-500 border-b-2 border-blue-500"
             >
               About
             </Link>
@@ -70,7 +70,7 @@ export default function Header() {
             <Input
               type="search"
               placeholder="Search movies..."
-              className="max-w-xs"
+              className="max-w-[305px] mx-3"
               value={search}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setSearch(e.target.value)
@@ -91,17 +91,13 @@ export default function Header() {
       <Modal
         isOpen={showRequestPopup}
         onClose={() => setShowRequestPopup(false)}
-        title="Example Modal"
+        title="Movie Request or Suggestion"
       >
         <form>
           <div className="mb-4">
             <textarea
               placeholder="Enter your request here..."
               className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 border-gray-300`}
-              // aria-invalid={error ? "true" : "false"}
-              // aria-describedby={error ? `${id}-error` : undefined}
-              // {...registerProps}
-              // {...props}
               onChange={(e) => setRequestData(e.target.value)}
             />
 
@@ -114,7 +110,7 @@ export default function Header() {
                   userId: localStorage.getItem("userUUID"),
                 }).then(() => setShowRequestPopup(false));
               }}
-              className="w-60 font-medium mr-6 border-blue-950 hover:bg-slate-100 hover:text-blue-500 hover:border-blue-500"
+              className="w-full font-medium mr-6 border-blue-950 hover:bg-slate-100 hover:text-blue-500 hover:border-blue-500"
             >
               Submit
             </Button>

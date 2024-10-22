@@ -56,13 +56,13 @@ export default function Home() {
             )}
           </div>
         </div>
-        <div className="w-full flex justify-center">
+        {/* <div className="w-full flex justify-center">
           <AdBanner
             height={90}
             width={728}
             id="07f82125a43265bd45a0176296ff8d37"
           />
-        </div>
+        </div> */}
         <div className="container mx-auto pt-6 pb-12 px-4 flex justify-evenly">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 w-3/4 max-w-[940px]">
             {movies.data?.map((movie: any, index: number) => (
