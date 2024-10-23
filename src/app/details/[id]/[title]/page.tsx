@@ -17,9 +17,9 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import YoutubePlayer from "@/components/YoutubePlayer";
-import AdBanner from "@/ads/Banner300160";
 import Link from "next/link";
 import AdsteraNativeBanner from "@/ads/AdsteraNativeBanner";
+import AdBannerIframe from "@/ads/AdBannerIframe";
 
 const Detail = () => {
   const [movieDetails, setMovieDetails] = useState<any | null>({});
@@ -511,20 +511,16 @@ const Detail = () => {
             </div>
           </div>
           <div className="w-[200px] min-w-[180px]">
-            <div className="h-[320px] w-[160px]">
-              <AdBanner
-                height={300}
-                width={160}
-                id="3ca92c4e9c2b17fedb8c0c2e44c9597c"
-              />
-            </div>
-            <div className="h-[620px]">
-              <AdBanner
-                height={600}
-                width={160}
-                id="7c77e4d81a893f77a847797536567228"
-              />
-            </div>
+            <AdBannerIframe
+              height={300}
+              width={160}
+              id="3ca92c4e9c2b17fedb8c0c2e44c9597c"
+            />
+            <AdBannerIframe
+              height={600}
+              width={160}
+              id="7c77e4d81a893f77a847797536567228"
+            />
           </div>
         </div>
       </div>
