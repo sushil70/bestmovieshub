@@ -294,7 +294,23 @@ export default async function Detail({ params }: Props) {
                 ))}
               </div>
             </div>
-
+            <div className=" flex justify-center flex-wrap ">
+              <AdBannerIframe
+                height={60}
+                width={468}
+                id="ceb5dce1e76c17e05d37831f3def9325"
+              />
+              <AdBannerIframe
+                height={50}
+                width={320}
+                id="1a17804676a54294cdf43e00fcc965e4"
+              />
+              <AdBannerIframe
+                height={90}
+                width={728}
+                id="07f82125a43265bd45a0176296ff8d37"
+              />
+            </div>
             <div className="flex flex-wrap gap-8 mt-8">
               <div
                 className={`bg-white rounded-lg shadow-lg p-6 w-full md:w-[calc(${
@@ -380,7 +396,23 @@ export default async function Detail({ params }: Props) {
                 ""
               )}
             </div>
-
+            <div className=" flex justify-center flex-wrap ">
+              <AdBannerIframe
+                height={60}
+                width={468}
+                id="ceb5dce1e76c17e05d37831f3def9325"
+              />
+              <AdBannerIframe
+                height={50}
+                width={320}
+                id="1a17804676a54294cdf43e00fcc965e4"
+              />
+              <AdBannerIframe
+                height={90}
+                width={728}
+                id="07f82125a43265bd45a0176296ff8d37"
+              />
+            </div>
             <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="bg-white rounded-lg shadow-lg p-6">
                 <h2 className="text-2xl font-semibold mb-4 text-center">
@@ -420,7 +452,23 @@ export default async function Detail({ params }: Props) {
                 </div>
               </div>
             </div>
-
+            <div className=" flex justify-center flex-wrap ">
+              <AdBannerIframe
+                height={60}
+                width={468}
+                id="ceb5dce1e76c17e05d37831f3def9325"
+              />
+              <AdBannerIframe
+                height={50}
+                width={320}
+                id="1a17804676a54294cdf43e00fcc965e4"
+              />
+              <AdBannerIframe
+                height={90}
+                width={728}
+                id="07f82125a43265bd45a0176296ff8d37"
+              />
+            </div>
             <div className="bg-white rounded-lg shadow-lg p-6 mt-8">
               <h2 className="text-2xl font-semibold mb-4 text-center">
                 Download {movieDetails.details}
@@ -443,7 +491,23 @@ export default async function Detail({ params }: Props) {
                 )}
               </div>
             </div>
-
+            <div className=" flex justify-center flex-wrap ">
+              <AdBannerIframe
+                height={60}
+                width={468}
+                id="ceb5dce1e76c17e05d37831f3def9325"
+              />
+              <AdBannerIframe
+                height={50}
+                width={320}
+                id="1a17804676a54294cdf43e00fcc965e4"
+              />
+              <AdBannerIframe
+                height={90}
+                width={728}
+                id="07f82125a43265bd45a0176296ff8d37"
+              />
+            </div>
             <div className="bg-white rounded-lg shadow-lg p-6 mt-8">
               <h2 className="text-2xl font-semibold mb-4">Leave a Review</h2>
               <form className="space-y-4">
@@ -538,6 +602,23 @@ export default async function Detail({ params }: Props) {
                 </div>
               </div>
             </div>
+            <div className=" flex justify-center flex-wrap ">
+              <AdBannerIframe
+                height={60}
+                width={468}
+                id="ceb5dce1e76c17e05d37831f3def9325"
+              />
+              <AdBannerIframe
+                height={50}
+                width={320}
+                id="1a17804676a54294cdf43e00fcc965e4"
+              />
+              <AdBannerIframe
+                height={90}
+                width={728}
+                id="07f82125a43265bd45a0176296ff8d37"
+              />
+            </div>
           </div>
           <div className="w-[200px] min-w-[180px]">
             <AdBannerIframe
@@ -549,6 +630,11 @@ export default async function Detail({ params }: Props) {
               height={600}
               width={160}
               id="7c77e4d81a893f77a847797536567228"
+            />
+            <AdBannerIframe
+              height={250}
+              width={300}
+              id="8bb95aaeed4e6483d96cabc9a8e0bada"
             />
           </div>
         </div>
