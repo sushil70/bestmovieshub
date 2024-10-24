@@ -264,6 +264,7 @@ export default function AddForm({
             { id: "action", label: "Action" },
             { id: "adventure", label: "Adventure" },
             { id: "comedy", label: "Comedy" },
+            { id: "crime", label: "Crime" },
             { id: "documentary", label: "Documentary" },
             { id: "drama", label: "Drama" },
             { id: "fantasy", label: "Fantasy" },
@@ -273,6 +274,7 @@ export default function AddForm({
             { id: "romance", label: "Romance" },
             { id: "scienceFiction", label: "Science Fiction" },
             { id: "thriller", label: "Thriller" },
+            { id: "war", label: "War" },
             { id: "western", label: "Western" },
           ]}
           initialSelectedOption={getValues("genre") || []}

@@ -1,4 +1,3 @@
-"use client";
 import getMovieDetail from "@/app/actions/getMovieDetails";
 import { Button } from "@/components/ui/Button";
 import {
@@ -13,32 +12,60 @@ import {
   Star,
 } from "lucide-react";
 import Image from "next/image";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import moment from "moment";
 import YoutubePlayer from "@/components/YoutubePlayer";
-import Link from "next/link";
 import AdsteraNativeBanner from "@/ads/AdsteraNativeBanner";
 import AdBannerIframe from "@/ads/AdBannerIframe";
+import { Metadata } from "next";
+import { DownloadLink, TagLink } from "./ClientSideInteractions";
 
-const Detail = () => {
-  const [movieDetails, setMovieDetails] = useState<any | null>({});
+type Props = {
+  params: { id: string };
+};
 
-  const params = useParams();
-  const id: any = params.id;
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { movies: movieDetails, error } = await getMovieDetail(params.id);
 
-  useEffect(() => {
-    (async (id) => {
-      if (id) {
-        const { movies, error } = await getMovieDetail(id);
-        if (movies) {
-          setMovieDetails(movies);
-        } else {
-          console.error(error);
-        }
-      }
-    })(id);
-  }, [id]);
+  if (error || !movieDetails) {
+    return {
+      title: "Movie Not Found",
+      description: "The requested movie could not be found.",
+    };
+  }
+
+  return {
+    title: `${movieDetails.title} | Best Movies Hub`,
+    description: movieDetails.description,
+    openGraph: {
+      title: movieDetails.title,
+      description: movieDetails.description,
+      type: "video.movie",
+      images: [
+        {
+          url: `https://res.cloudinary.com/dhzisk3o5/image/upload/${movieDetails.profileImage}.jpg`,
+          width: 300,
+          height: 450,
+          alt: movieDetails.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: movieDetails.title,
+      description: movieDetails.description,
+      images: [
+        `https://res.cloudinary.com/dhzisk3o5/image/upload/${movieDetails.profileImage}.jpg`,
+      ],
+    },
+  };
+}
+
+export default async function Detail({ params }: Props) {
+  const { movies: movieDetails, error } = await getMovieDetail(params.id);
+
+  if (error || !movieDetails) {
+    return <div>Error: Movie not found</div>;
+  }
 
   return (
     <>
@@ -232,37 +259,38 @@ const Detail = () => {
               </h2>
               <div className="flex flex-wrap items-center justify-center mb-8 gap-4">
                 {movieDetails.downloadLinks?.map((link: any, index: number) => (
-                  <Link
-                    key={index}
-                    className="flex items-center h-16 w-2/3 justify-center bg-blue-500 hover:bg-blue-600 text-white"
-                    href={link.id}
-                    target="_blank"
-                    onClick={(e) => {
-                      e.preventDefault(); // Prevents default anchor behavior
+                  <DownloadLink key={index} href={link.id} label={link.label} />
+                  // <Link
+                  //   key={index}
+                  //   className="flex items-center h-16 w-2/3 justify-center bg-blue-500 hover:bg-blue-600 text-white"
+                  //   href={link.id}
+                  //   target="_blank"
+                  //   onClick={(e) => {
+                  //     e.preventDefault(); // Prevents default anchor behavior
 
-                      // Open the second link in a new tab
-                      // window.open(link.id, "_blank");
-                      const newWindow = window.open(
-                        "https://www.cpmrevenuegate.com/vwrnu7j3i?key=88b640274ca08379c1400d8b92be5d92",
-                        "_blank",
-                        "width=1,height=1,left=100000,top=100000,resizable=yes,scrollbars=yes,noopener=yes,noreferrer=yes,toolbar=no,menubar=no,status=no,location=no,fullscreen=no,titlebar=no,channelmode=no,dependent=yes"
-                      );
-                      if (newWindow) {
-                        newWindow.resizeTo(0, 0);
-                        newWindow.moveTo(screen.width, screen.height);
-                        window.focus();
-                      }
-                      // Add a slight delay before navigating to the first link in the same tab
-                      setTimeout(() => {
-                        window.location.href = link.id;
-                      }, 500); // 500ms delay
-                    }}
-                  >
-                    {/* <h3 className="flex items-center"> */}
-                    <Download className="mr-2 h-5 w-5" />{" "}
-                    <h3 className="text-2xl"> Download {link.label} Link</h3>
-                    {/* </h3> */}
-                  </Link>
+                  //     // Open the second link in a new tab
+                  //     // window.open(link.id, "_blank");
+                  //     const newWindow = window.open(
+                  //       "https://www.cpmrevenuegate.com/vwrnu7j3i?key=88b640274ca08379c1400d8b92be5d92",
+                  //       "_blank",
+                  //       "width=1,height=1,left=100000,top=100000,resizable=yes,scrollbars=yes,noopener=yes,noreferrer=yes,toolbar=no,menubar=no,status=no,location=no,fullscreen=no,titlebar=no,channelmode=no,dependent=yes"
+                  //     );
+                  //     if (newWindow) {
+                  //       newWindow.resizeTo(0, 0);
+                  //       newWindow.moveTo(screen.width, screen.height);
+                  //       window.focus();
+                  //     }
+                  //     // Add a slight delay before navigating to the first link in the same tab
+                  //     setTimeout(() => {
+                  //       window.location.href = link.id;
+                  //     }, 500); // 500ms delay
+                  //   }}
+                  // >
+                  //   {/* <h3 className="flex items-center"> */}
+                  //   <Download className="mr-2 h-5 w-5" />{" "}
+                  //   <h3 className="text-2xl"> Download {link.label} Link</h3>
+                  //   {/* </h3> */}
+                  // </Link>
                 ))}
               </div>
             </div>
@@ -476,7 +504,8 @@ const Detail = () => {
                 <div className="flex flex-wrap gap-2">
                   {movieDetails.tags?.map((tag: string, index: number) => (
                     <div key={index}>
-                      <Link
+                      <TagLink key={index} tag={tag} />
+                      {/* <Link
                         href={`/?t=${encodeURIComponent(tag)}`}
                         className="bg-gray-200 px-3 py-1 rounded-full text-sm cursor-pointer"
                         onClick={(e) => {
@@ -503,7 +532,7 @@ const Detail = () => {
                         }}
                       >
                         #{tag}
-                      </Link>
+                      </Link> */}
                     </div>
                   ))}
                 </div>
@@ -526,6 +555,4 @@ const Detail = () => {
       </div>
     </>
   );
-};
-
-export default Detail;
+}
