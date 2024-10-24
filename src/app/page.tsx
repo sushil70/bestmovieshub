@@ -56,7 +56,19 @@ export default function Home() {
             )}
           </div>
         </div>
-        <div className="container mx-auto pt-6 pb-12 px-4 flex justify-evenly">
+        <div className=" flex justify-center flex-wrap ">
+          <AdBannerIframe
+            height={60}
+            width={468}
+            id="ceb5dce1e76c17e05d37831f3def9325"
+          />
+          <AdBannerIframe
+            height={50}
+            width={320}
+            id="1a17804676a54294cdf43e00fcc965e4"
+          />
+        </div>
+        <div className="container mx-auto pt-6 pb-12 px-4 flex justify-evenly ">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 w-3/4 max-w-[940px]">
             {movies.data?.map((movie: any, index: number) => (
               <Link
@@ -123,7 +135,7 @@ export default function Home() {
               </Link>
             ))}
           </div>
-          <div className="flow mt-8 w-[170px] ">
+          <div className="flow mt-8 w-[170px] hidden sm:block ">
             <AdBannerIframe
               height={300}
               width={160}
@@ -180,11 +192,31 @@ export default function Home() {
       ) : (
         ""
       )}
-      <AdBannerIframe
-        height={90}
-        width={728}
-        id="07f82125a43265bd45a0176296ff8d37"
-      />
+
+      <div className="flow mt-8 w-[170px] sm:hidden ">
+        <AdBannerIframe
+          height={300}
+          width={160}
+          id="3ca92c4e9c2b17fedb8c0c2e44c9597c"
+        />
+        <AdBannerIframe
+          height={600}
+          width={160}
+          id="7c77e4d81a893f77a847797536567228"
+        />
+      </div>
+      <div className="flex justify-center flex-wrap">
+        <AdBannerIframe
+          height={90}
+          width={728}
+          id="07f82125a43265bd45a0176296ff8d37"
+        />
+        <AdBannerIframe
+          height={250}
+          width={300}
+          id="8bb95aaeed4e6483d96cabc9a8e0bada"
+        />
+      </div>
     </>
   );
 }
