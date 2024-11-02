@@ -263,6 +263,7 @@ export default function AddForm({
             { id: "18+", label: "18+" },
             { id: "action", label: "Action" },
             { id: "adventure", label: "Adventure" },
+            { id: "animation", label: "Animation" },
             { id: "comedy", label: "Comedy" },
             { id: "crime", label: "Crime" },
             { id: "documentary", label: "Documentary" },

@@ -150,21 +150,15 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Native Banner ads */}
-      <div className="mb-4 m-auto w-2/3">
-        <AdsteraNativeBanner
-          atOptions={{
-            key: "8510d78b791c24bef6fb6cbc0298424a",
-            format: "banner",
-          }}
-        />
-      </div>
-
       {movies.pagination?.totalPage > 0 ? (
         <footer className="mt-8 p-4 bg-[#fff] text-center">
           <div className="flex justify-center space-x-2 mb-4">
-            {movies.pagination?.totalPage > 2 && (
-              <Button variant="outline" onClick={() => setSkip(0)}>
+            {movies.pagination?.totalPage > 2 && skip > 0 && (
+              <Button
+                variant="outline"
+                onClick={() => setSkip((pre) => pre - 1)}
+                disabled={skip === 0}
+              >
                 &lt;
               </Button>
             )}
@@ -179,19 +173,31 @@ export default function Home() {
                 {i + 1}
               </Button>
             ))}
-            {movies.pagination?.totalPage > 2 && (
-              <Button
-                variant="outline"
-                onClick={() => setSkip(movies.pagination?.totalPage)}
-              >
-                &gt;
-              </Button>
-            )}
+            {movies.pagination?.totalPage > 2 &&
+              skip < movies.pagination?.totalPage - 1 && (
+                <Button
+                  variant="outline"
+                  onClick={() => setSkip((pre) => pre + 1)}
+                  disabled={skip === movies.pagination?.totalPage - 1}
+                >
+                  &gt;
+                </Button>
+              )}
           </div>
         </footer>
       ) : (
         ""
       )}
+
+      {/* Native Banner ads */}
+      <div className="mb-4 m-auto w-2/3">
+        <AdsteraNativeBanner
+          atOptions={{
+            key: "8510d78b791c24bef6fb6cbc0298424a",
+            format: "banner",
+          }}
+        />
+      </div>
 
       <div className="flow mt-8 w-[170px] sm:hidden ">
         <AdBannerIframe
