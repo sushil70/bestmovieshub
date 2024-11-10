@@ -47,10 +47,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       `${movieDetails.title} ${movieDetails.languages?.label} free download`,
       `${movieDetails.title} ${movieDetails.languages?.label} free movie download`,
       `${movieDetails.title} ${movieDetails.languages?.label}`,
-      ...movieDetails.genre,
+      ...movieDetails.genre.map((g: any) => g.label),
       ...movieDetails.tags,
-      ...movieDetails.actors,
-      ...movieDetails.director,
+      ...movieDetails.actors.map((g: any) => g.label),
+      ...movieDetails.director.map((g: any) => g.label),
     ],
     openGraph: {
       title: movieDetails.title,
