@@ -18,12 +18,9 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Full HD Movies Download | Best Movies Hub | Free Download",
+  title: "Full HD Movies Download | Best Movies Hub ",
   description:
     "Best Movies Hub | Download a wide collection of movies and series for free. Explore the latest releases, classics, and genres, all available for fast, easy downloading. Join now and enjoy free movie downloads!",
-  // icons: {
-  //   icon: "/metaLogo.png",
-  // },
   keywords: [
     "Best Movies Hub",
     "Download",
@@ -35,6 +32,18 @@ export const metadata: Metadata = {
     "Hd Movies Free Download",
     "Hd Movies Download Site",
     "Hd Movies Free Download Site",
+    "movie download",
+    "movies download",
+    "movie download site",
+    "movies download site",
+    "free movie download",
+    "free movies download",
+    "free movie download site",
+    "free movies download site",
+    "best movies download",
+    "best movies download site",
+    "best movie download",
+    "best movie download site",
   ],
 
   openGraph: {
@@ -53,15 +62,6 @@ export const metadata: Metadata = {
       "Hd Movies Free Download",
       "Hd Movies Download Site",
       "Hd Movies Free Download Site",
-    ],
-
-    images: [
-      {
-        url: "/icon.png",
-        width: 87,
-        height: 87,
-        alt: "My custom alt",
-      },
     ],
   },
 };

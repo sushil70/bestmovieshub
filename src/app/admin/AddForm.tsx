@@ -138,6 +138,18 @@ export default function AddForm({
   }, []);
 
   const onSubmit = async (data: any) => {
+    const tagsData =
+      data.tags
+        ?.replace(/\s+/g, "")
+        ?.replace(/\n/g, "")
+        ?.replace(/,/g, "")
+        ?.split("#")
+        .filter((tag: string) => tag !== "") || [];
+
+    tagsData.push(...data.genre.map((g: any) => g.label));
+    tagsData.push(...data.actors.map((actor: any) => actor.label));
+    tagsData.push(...data.director.map((d: any) => d.label));
+
     const formData = {
       ...data,
       profileImage: `${data.title}p`,
@@ -157,13 +169,7 @@ export default function AddForm({
           : data.type.id === "series"
           ? `${data.runtime} Episodes`
           : "",
-      tags:
-        data.tags
-          ?.replace(/\s+/g, "")
-          ?.replace(/\n/g, "")
-          ?.replace(/,/g, "")
-          ?.split("#")
-          .filter((tag: string) => tag !== "") || [],
+      tags: tagsData,
     };
 
     let result: any = "";

@@ -34,8 +34,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${movieDetails.title} | Best Movies Hub`,
+    title: `${movieDetails.title} Download | Best Movies Hub`,
     description: movieDetails.description,
+    keywords: [
+      movieDetails.title,
+      `${movieDetails.title} download`,
+      `${movieDetails.title} free download`,
+      `${movieDetails.title} free movie download`,
+      `${movieDetails.title} movie download`,
+      `${movieDetails.title} ${movieDetails.languages?.label} movie download`,
+      `${movieDetails.title} ${movieDetails.languages?.label} download`,
+      `${movieDetails.title} ${movieDetails.languages?.label} free download`,
+      `${movieDetails.title} ${movieDetails.languages?.label} free movie download`,
+      `${movieDetails.title} ${movieDetails.languages?.label}`,
+      ...movieDetails.genre,
+      ...movieDetails.tags,
+      ...movieDetails.actors,
+      ...movieDetails.director,
+    ],
     openGraph: {
       title: movieDetails.title,
       description: movieDetails.description,
