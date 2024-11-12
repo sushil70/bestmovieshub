@@ -41,7 +41,7 @@ export default function AdBannerIframe({
     // Create and append the script elements
     const script1 = iframeDocument.createElement("script");
     script1.textContent = `
-      var atOptions = {
+       atOptions = {
         key: "${id}",
         format: "iframe",
         height: ${height},

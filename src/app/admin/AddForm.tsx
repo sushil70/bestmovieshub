@@ -215,6 +215,62 @@ export default function AddForm({
     setValue("downloadLinks", newLinks);
   };
 
+  const addDublicateMovie = async (data: any) => {
+    const tagsData =
+      data.tags
+        ?.replace(/\s+/g, "")
+        ?.replace(/\n/g, "")
+        ?.replace(/,/g, "")
+        ?.split("#")
+        .filter((tag: string) => tag !== "") || [];
+
+    tagsData.push(...data.genre.map((g: any) => g.label));
+    tagsData.push(...data.actors.map((actor: any) => actor.label));
+    tagsData.push(...data.director.map((d: any) => d.label));
+
+    const formData = {
+      ...data,
+      // profileImage: `${data.title}p`,
+      // images: Array.from({ length: parseInt(data?.noOfImages) }).map(
+      //   (n: any, index: number) => (data.title + (index + 1)).toString()
+      // ),
+      // backdropImage: `${data.title}b`,
+      year: data.releaseDate?.split("-")?.[0] || "",
+      details: `${data.title} (${data.releaseDate?.split("-")?.[0] || ""}) ${
+        data.languages?.label ? data.languages?.label : ""
+      }`,
+      runtime:
+        data.type.id === "movie"
+          ? `${Math.floor(parseInt(data.runtime) / 60)}h ${
+              parseInt(data.runtime) % 60
+            }min`
+          : data.type.id === "series"
+          ? `${data.runtime} Episodes`
+          : "",
+      tags: tagsData,
+    };
+
+    let result: any = "";
+    delete formData.id;
+    delete formData.createdDate;
+    delete formData.updatedDate;
+    delete formData.show;
+    result = await addMovie(formData);
+
+    if (result.success) {
+      setSubmitStatus({ success: true, message: "Movie added successfully!" });
+      setInitialState("");
+      setIsOpen(false);
+      const { movies } = await getTableMovieList();
+      setMoviesData(movies);
+    } else {
+      setSubmitStatus({
+        success: false,
+        message: result.error || "Failed to add movie",
+      });
+    }
+  };
+
   return (
     <div className="container mx-auto px-4 md:px-12">
       <form
@@ -462,14 +518,25 @@ export default function AddForm({
           </button>
         </div>
 
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
-          aria-live="polite"
-        >
-          {isSubmitting ? "Adding..." : "Add Movie"}
-        </button>
+        <div className="flex space-4 w-full justify-between">
+          <button
+            type="button"
+            disabled={isSubmitting}
+            className="w-fit m-4 p-2 border border-blue-600 text-gray-700 py-2 rounded-md "
+            aria-live="polite"
+            onClick={() => addDublicateMovie(getValues())}
+          >
+            {isSubmitting ? "Adding..." : "Create Duplicate Movie"}
+          </button>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-fit m-4 p-2 bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
+            aria-live="polite"
+          >
+            {isSubmitting ? "Adding..." : "Add Movie"}
+          </button>
+        </div>
         {submitStatus && (
           <p
             className={`mt-4 text-center ${
