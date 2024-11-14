@@ -2,6 +2,7 @@
 const nextConfig = {
   images: {
     domains: ["res.cloudinary.com", "collection.cloudinary.com"],
+    minimumCacheTTL: 60 * 60 * 24, // 1 day
   },
   env: {
     REACT_APP_ADMIN_ID: "passwordToAdminPageWhereFixedManCanGo",
