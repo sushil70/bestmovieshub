@@ -11,5 +11,6 @@ export const getOrSetUserUUID = () => {
     addUser({ id: userUUID });
   } else {
     updateUser(userUUID);
+    console.log("aah");
   }
 };
